@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       { path: 'page-404', component: Page404Component, data: { title: 'Page 404' } },
       { path: 'page-500', component: Page500Component, data: { title: 'Page 500' } },
-      { path: '**', redirectTo: '/page-404' },
+      { path: '**', redirectTo: 'page-404' },
     ]
   }
 ];

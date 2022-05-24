@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  googleClientId: '132017815030-7sibgsgreh1u9t7bftdkcji6lbh5puag.apps.googleusercontent.com',
+  baseUrlAuth: 'http://localhost:8000/auth/api/v1/',
+  baseUrlEntrance: 'http://localhost:8001/entrance/api/v1/',
+  baseUrlUser: 'http://localhost:8000/users/api/v1/'
 };
 
 /*
