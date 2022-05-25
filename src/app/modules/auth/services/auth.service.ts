@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    return this.cookieService.check('token_access');
+    return this.cookieService.check('access_token');
   }
 
   public logout(): void {
