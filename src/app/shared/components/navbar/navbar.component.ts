@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private socialAuthService: SocialAuthService, private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  public logOut(): void {
+    this.socialAuthService.signOut();
+    this.authService.logout();
+    window.location.reload();
   }
 
 }

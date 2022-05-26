@@ -3,8 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', loadChildren: () => import('@modules/home/home.module').then(m => m.HomeModule) },
-  { path: 'auth', loadChildren: () => import('@modules/auth/auth.module').then((m) => m.AuthModule) },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('@modules/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('@modules/auth/auth.module').then((m) => m.AuthModule)
+  },
   {
     path: 'account',
     loadChildren: () => import('@modules/account/account.module').then((m) => m.AccountModule),
@@ -25,8 +36,15 @@ const routes: Routes = [
     loadChildren: () => import('@modules/admin/admin.module').then((m) => m.AdminModule),
     canActivate: [AuthGuard]
   },
-  { path: 'not-found', loadChildren: () => import('@modules/not-pages-found/not-pages-found.module').then((m) => m.NotPagesFoundModule) },
-  { path: '**', redirectTo: 'home' },
+  {
+    path: 'not-found',
+    loadChildren: () => import('@modules/not-pages-found/not-pages-found.module').then((m) => m.NotPagesFoundModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

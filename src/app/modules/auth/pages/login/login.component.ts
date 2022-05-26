@@ -28,17 +28,15 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: SocialUser) => {
       this.tokenDTO.token = data.idToken;
       this.signIn(this.tokenDTO);
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
   public signIn(data: any): void {
-    this.authService.signIn(data).subscribe(res => {
+    this.authService.signIn(data).subscribe((res: any) => {
       this.router.navigate(['/admin/dashboard']);
     });
-  }
-
-  public signOut(): void {
-    this.socialAuthService.signOut();
   }
 
 }

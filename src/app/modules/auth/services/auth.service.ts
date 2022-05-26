@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, tap } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
 
@@ -11,18 +11,20 @@ import { environment } from '@env/environment';
 export class AuthService {
 
   private readonly URL = `${environment.baseUrlAuth}sign_in/`;
-  private headers: HttpHeaders = new HttpHeaders({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
-  public user: any = {};
+  public currentUser: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    this.currentUser = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user') || '{}'));
+  }
 
   public signIn(data: any): Observable<any> {
-    return this.http.post<any>(this.URL, JSON.stringify(data), { headers: this.headers }).pipe(
+    return this.http.post<any>(this.URL, JSON.stringify(data)).pipe(
       tap((res: any) => {
         this.cookieService.set('access_token', res.access, new Date(this.getDecodedAccessToken(res.access).exp * 1000), '/');
         this.cookieService.set('refresh_token', res.refresh, new Date(this.getDecodedAccessToken(res.refresh).exp * 1000), '/');
-        this.user = this.getDecodedAccessToken(res.access).user;
-        localStorage.setItem('user', JSON.stringify(this.user));
+        this.currentUser = this.getDecodedAccessToken(res.access).user;
+        localStorage.setItem('user', JSON.stringify(this.currentUser));
+        this.currentUser.next(this.currentUser);
       }),
       catchError(this.handleError));
   }
@@ -34,6 +36,7 @@ export class AuthService {
   public logout(): void {
     this.cookieService.delete('access_token');
     this.cookieService.delete('refresh_token');
+    this.currentUser.next(null);
   }
 
   public getDecodedAccessToken(token: string): any {
@@ -45,7 +48,7 @@ export class AuthService {
   }
 
   public getCurrentUser(): any {
-    return this.user;
+    return this.currentUser.value;
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

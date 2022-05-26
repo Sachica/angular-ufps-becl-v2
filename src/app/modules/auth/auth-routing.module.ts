@@ -7,9 +7,21 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'login', component: LoginComponent, data: { title: 'Login' } },
-      { path: 'register', component: RegisterComponent, data: { title: 'Register' } },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' },
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: 'Login' }
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        data: { title: 'Register' }
+      },
+      {
+        path: '**',
+        redirectTo: 'login',
+        pathMatch: 'full'
+      },
     ],
   }
 ];

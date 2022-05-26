@@ -9,9 +9,21 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: 'profile', component: ProfileComponent, data: { title: 'Profile' } },
-      { path: 'settings', component: SettingsComponent, data: { title: 'Settings' } },
-      { path: '**', redirectTo: 'profile', pathMatch: 'full' },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { title: 'Profile' }
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        data: { title: 'Settings' }
+      },
+      {
+        path: '**',
+        redirectTo: 'profile',
+        pathMatch: 'full'
+      },
     ]
   }
 ];
