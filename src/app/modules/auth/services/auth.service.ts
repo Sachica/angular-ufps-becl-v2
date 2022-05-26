@@ -22,9 +22,9 @@ export class AuthService {
       tap((res: any) => {
         this.cookieService.set('access_token', res.access, new Date(this.getDecodedAccessToken(res.access).exp * 1000), '/');
         this.cookieService.set('refresh_token', res.refresh, new Date(this.getDecodedAccessToken(res.refresh).exp * 1000), '/');
-        this.currentUser = this.getDecodedAccessToken(res.access).user;
-        localStorage.setItem('user', JSON.stringify(this.currentUser));
-        this.currentUser.next(this.currentUser);
+        //this.currentUser = this.getDecodedAccessToken(res.access).user;
+        this.setUserToLocalStorage(this.currentUser);
+        this.currentUser.next(this.getDecodedAccessToken(res.access).user);
       }),
       catchError(this.handleError));
   }
@@ -36,6 +36,7 @@ export class AuthService {
   public logout(): void {
     this.cookieService.delete('access_token');
     this.cookieService.delete('refresh_token');
+    localStorage.removeItem('user');
     this.currentUser.next(null);
   }
 
@@ -49,6 +50,19 @@ export class AuthService {
 
   public getCurrentUser(): any {
     return this.currentUser.value;
+  }
+
+  public getUserToLocalStorage(): void {
+    this.currentUser.next(JSON.parse(localStorage.getItem('user')!));
+  }
+
+  public setUserToLocalStorage(user: any): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public hasAccessToModule(permission: string): boolean {
+    const user = this.getCurrentUser();
+    return user.permissions.includes(permission);
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

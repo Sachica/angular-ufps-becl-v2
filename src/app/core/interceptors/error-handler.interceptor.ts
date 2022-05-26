@@ -15,7 +15,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if ([401, 403, 404].indexOf(error.status) !== -1) {
           this.authService.logout();
-          this.router.navigateByUrl('/not-found/page-404');
+          this.router.navigateByUrl('/not-found/page-404' + error.status);
         }
         return throwError(() => error);
       })
