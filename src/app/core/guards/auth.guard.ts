@@ -1,19 +1,36 @@
+import { OnInit, OnDestroy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, NavigationEnd, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AuthService } from '@modules/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, OnInit, OnDestroy {
 
-  constructor(private authService: AuthService, private router: Router, activatedRoute: ActivatedRoute) {
-    router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
-        console.log(activatedRoute.snapshot.firstChild!.data);
+  private sub: Subscription;
+  private isPermission: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    this.sub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.route.snapshot),
+      map(route => {
+        while (route.firstChild) { route = route.firstChild; }
+        return route;
+      }),
+    ).subscribe((route: ActivatedRouteSnapshot) => {
+      console.log(!!route.data['permission']);
+      if (!!route.data['permission'] && this.authService.hasPermission(route.data['permission'])) {
+        this.isPermission = true;
       }
     });
+  }
+
+  ngOnInit() {
   }
 
   canActivate(
@@ -25,14 +42,19 @@ export class AuthGuard implements CanActivate {
   checkUserLogin(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
     if (isLoggedIn) {
-      if (route.data['permission'] && !this.authService.hasAccessToModule(route.data['permission'])) {
+      if (!this.isPermission) {
         this.router.navigateByUrl('/not-found/page-404');
+        window.alert('You do not have permission to access this page');
         return false;
       }
       return true;
     }
-    console.log(route.data['permission']);
     this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
 }

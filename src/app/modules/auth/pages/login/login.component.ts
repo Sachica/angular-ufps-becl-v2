@@ -11,21 +11,21 @@ import { ITokenDTO, IToken } from '@data/interfaces';
 })
 export class LoginComponent implements OnInit {
 
-  public socialUser: SocialUser = new SocialUser;
+  //public socialUser: SocialUser = new SocialUser;
   public tokenDTO: ITokenDTO = {} as ITokenDTO;
 
   constructor(private socialAuthService: SocialAuthService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe((user: SocialUser) => {
+/*     this.socialAuthService.authState.subscribe((user: SocialUser) => {
       this.socialUser = user;
       console.log(user);
-    });
+    }); */
   }
 
   public signInWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: SocialUser) => {
-      this.socialUser = data;
+      //this.socialUser = data;
       this.tokenDTO.token = data.idToken;
       this.signIn(this.tokenDTO);
     }).catch((error) => {
