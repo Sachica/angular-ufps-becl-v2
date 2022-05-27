@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isLoggedIn = this.authService.isLoggedIn();
     if (isLoggedIn) {
+      console.log(route.data?.['permission']);
       if (route.data?.['permission'] && !this.authService.hasAccessToModule(route.data?.['permission'])) {
         this.router.navigateByUrl('/not-found/page-404');
         return false;

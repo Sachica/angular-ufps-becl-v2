@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
+import { IAccessToken, IToken, ITokenDTO } from '@data/interfaces';
+import { User } from '@data/models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +13,23 @@ import { environment } from '@env/environment';
 export class AuthService {
 
   private readonly URL = `${environment.baseUrlAuth}sign_in/`;
-  public currentUser: BehaviorSubject<any>;
+  private userSubject: BehaviorSubject<User>
+  public user: Observable<User>
+  private token: IAccessToken = {} as IAccessToken;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.currentUser = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user') || '{}'));
+    this.userSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user') || '{}'));
+    this.user = this.userSubject.asObservable();
   }
 
-  public signIn(data: any): Observable<any> {
-    return this.http.post<any>(this.URL, JSON.stringify(data)).pipe(
-      tap((res: any) => {
-        this.cookieService.set('access_token', res.access, new Date(this.getDecodedAccessToken(res.access).exp * 1000), '/');
-        this.cookieService.set('refresh_token', res.refresh, new Date(this.getDecodedAccessToken(res.refresh).exp * 1000), '/');
-        //this.currentUser = this.getDecodedAccessToken(res.access).user;
-        this.setUserToLocalStorage(this.currentUser);
-        this.currentUser.next(this.getDecodedAccessToken(res.access).user);
+  public signIn(data: ITokenDTO): Observable<IToken> {
+    return this.http.post<IToken>(this.URL, JSON.stringify(data)).pipe(
+      tap((res: IToken) => {
+        this.token = this.getDecodedAccessToken(res.access);
+        this.cookieService.set('access_token', res.access, new Date(this.token.exp * 1000), '/');
+        this.cookieService.set('refresh_token', res.refresh, new Date(this.token.exp * 1000), '/');
+        this.setUserToLocalStorage(this.token.user);
+        this.userSubject.next(this.token.user);
       }),
       catchError(this.handleError));
   }
@@ -37,23 +42,19 @@ export class AuthService {
     this.cookieService.delete('access_token');
     this.cookieService.delete('refresh_token');
     localStorage.removeItem('user');
-    this.currentUser.next(null);
+    this.userSubject.next(null as any);
   }
 
-  public getDecodedAccessToken(token: string): any {
-    try {
-      return JSON.parse(window.atob(token.split('.')[1]));
-    } catch (e) {
-      return null;
-    }
+  public getDecodedAccessToken(token: string): IAccessToken {
+    return JSON.parse(window.atob(token.split('.')[1])) as IAccessToken;
   }
 
-  public getCurrentUser(): any {
-    return this.currentUser.value;
+  public getCurrentUser(): User {
+    return this.userSubject.value;
   }
 
   public getUserToLocalStorage(): void {
-    this.currentUser.next(JSON.parse(localStorage.getItem('user')!));
+    this.userSubject.next(JSON.parse(localStorage.getItem('user')!));
   }
 
   public setUserToLocalStorage(user: any): void {
@@ -61,8 +62,7 @@ export class AuthService {
   }
 
   public hasAccessToModule(permission: string): boolean {
-    const user = this.getCurrentUser();
-    return user.permissions.includes(permission);
+    return this.getCurrentUser().user_permissions.some(p => p.codename === permission);
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

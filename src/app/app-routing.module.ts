@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { NoAuthGuard } from '@core/guards/no-auth.guard';
 
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('@modules/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('@modules/home/home.module').then((m) => m.HomeModule),
     canActivate: [NoAuthGuard]
   },
   {
@@ -52,7 +52,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true,
+    enableTracing: false,
+    preloadingStrategy: PreloadAllModules
+  }
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
