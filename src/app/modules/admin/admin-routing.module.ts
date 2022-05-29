@@ -17,11 +17,13 @@ const routes: Routes = [
       },
       {
         path: 'users-list',
-        data: { title: 'Users List', permission: 'users-list' }
+        canActivate: [AuthGuard],
+        data: { title: 'Users List', permission: 'listUsers' },
       },
       {
         path: 'user-detail/:id',
-        data: { title: 'User Detail', permission: 'user-detail' }
+        canActivate: [AuthGuard],
+        data: { title: 'User Detail', permission: 'detailUser' },
       },
       {
         path: '**',

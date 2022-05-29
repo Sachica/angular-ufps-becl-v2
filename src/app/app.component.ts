@@ -28,6 +28,7 @@ export class AppComponent {
           }
           if (route.snapshot.data['title']) {
             routeTitle = route!.snapshot.data['title'];
+            localStorage.setItem('data', JSON.stringify(route.snapshot.data));
           }
           return routeTitle;
         })

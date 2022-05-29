@@ -37,13 +37,11 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('@modules/admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [AuthGuard],
-    data: { title: 'Admin', permission: 'admin' }
+    canActivate: [AuthGuard]
   },
   {
     path: 'not-found',
-    loadChildren: () => import('@modules/not-pages-found/not-pages-found.module').then((m) => m.NotPagesFoundModule),
-    canActivate: [NoAuthGuard]
+    loadChildren: () => import('@modules/not-pages-found/not-pages-found.module').then((m) => m.NotPagesFoundModule)
   },
   {
     path: '**',
