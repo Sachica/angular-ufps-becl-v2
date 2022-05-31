@@ -7,7 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '@env/environment';
 
@@ -20,8 +20,7 @@ import { environment } from '@env/environment';
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule,
-    SocialLoginModule
+    SharedRoutingModule
   ],
   exports: [
     FooterComponent,
