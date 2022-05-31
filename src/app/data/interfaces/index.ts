@@ -1,4 +1,4 @@
-export { ITokenDTO } from './token-dto.interface';
+export { ITokenDto } from './dto/token-dto.interface';
 
 export { IToken } from './token.interface';
 

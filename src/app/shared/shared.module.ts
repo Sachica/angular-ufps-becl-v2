@@ -20,7 +20,8 @@ import { environment } from '@env/environment';
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    SocialLoginModule
   ],
   exports: [
     FooterComponent,

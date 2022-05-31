@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpTokenInterceptor } from '@core/interceptors/http-token.interceptor';
 import { ErrorHandlerInterceptor } from '@core/interceptors/error-handler.interceptor';
@@ -24,6 +25,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxPermissionsModule.forRoot(),
     CoreModule,
     SharedModule
   ],

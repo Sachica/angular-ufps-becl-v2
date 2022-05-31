@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
-import { IAccessToken, IToken, ITokenDTO, IPermission } from '@data/interfaces';
+import { IAccessToken, IToken, ITokenDto, IPermission } from '@data/interfaces';
 import { User } from '@data/models';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
@@ -16,16 +16,18 @@ export class AuthService {
   private readonly URL = `${environment.ngrokUrlAuth}sign_in/`;
   private userSubject: BehaviorSubject<User>
   public user: Observable<User>
-  public helper = new JwtHelperService();
+  private helper: JwtHelperService;
   private token: IAccessToken = {} as IAccessToken;
-  private permission: IPermission = { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 } as IPermission;
+  private permission: IPermission;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
     this.user = this.userSubject.asObservable();
+    this.helper = new JwtHelperService();
+    this.permission = { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 } as IPermission;
   }
 
-  public signIn(data: ITokenDTO): Observable<IToken> {
+  public signIn(data: ITokenDto): Observable<IToken> {
     return this.http.post<IToken>(this.URL, JSON.stringify(data)).pipe(
       tap((res: IToken) => {
         this.token = this.helper.decodeToken(res.access);
