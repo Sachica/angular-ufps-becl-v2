@@ -77,9 +77,6 @@ export class AuthService {
   }
 
   public hasPermission(permission: string): boolean {
-    if (permission === undefined) {
-      return true;
-    }
     return this.userSubject.value.user_permissions.some(p => p.codename === permission);
   }
 

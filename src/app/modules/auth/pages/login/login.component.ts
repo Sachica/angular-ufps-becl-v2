@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   public signIn(data: ITokenDto): void {
     this.authService.signIn(data).subscribe((token: IToken) => {
-      console.log(token);
       this.router.navigate(['/account/profile']);
     });
   }

@@ -45,9 +45,9 @@ export class AuthGuard implements CanActivate {
   checkUserLogin(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
     const isPermission: boolean = !!this.authService.getDataToLocalStorage().permission;
-    const isPermissionCheck: boolean = this.authService.hasPermission(this.authService.getDataToLocalStorage().permission);
+    const isPermissionCheck: boolean = isPermission ? this.authService.hasPermission(this.authService.getDataToLocalStorage().permission) : true;
     if (isLoggedIn) {
-      if (isPermission && !isPermissionCheck) {
+      if (!isPermissionCheck) {
         this.authService.logout();
         this.router.navigateByUrl('/not-found/page-404');
         return false;

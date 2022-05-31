@@ -8,7 +8,7 @@ export const environment = {
   baseUrlAuth: 'http://localhost:8000/auth/api/v1/',
   baseUrlEntrance: 'http://localhost:8001/entrance/api/v1/',
   baseUrlUser: 'http://localhost:8000/users/api/v1/',
-  ngrokUrlAuth: 'https://0689-200-93-148-10.ngrok.io/auth/api/v1/',
+  ngrokUrlAuth: 'https://4aa7-200-93-148-32.ngrok.io/auth/api/v1/',
 };
 
 /*
