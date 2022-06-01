@@ -14,15 +14,15 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 export class AuthService {
 
   private readonly URL = `${environment.ngrokUrlAuth}sign_in/`;
-  private userSubject: BehaviorSubject<User>
-  public user: Observable<User>
+  private currentUserSubject: BehaviorSubject<User>
+  public currentUser: Observable<User>
   private helper: JwtHelperService;
   private token: IAccessToken = {} as IAccessToken;
   private permission: IPermission;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
-    this.user = this.userSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
+    this.currentUser = this.currentUserSubject.asObservable();
     this.helper = new JwtHelperService();
     this.permission = { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 } as IPermission;
   }
@@ -34,7 +34,7 @@ export class AuthService {
         this.cookieService.set('access_token', res.access, new Date(this.token.exp * 1000), '/');
         this.cookieService.set('refresh_token', res.refresh, new Date(this.token.exp * 1000), '/');
         this.setUserToLocalStorage(this.token.user);
-        this.userSubject.next(this.token.user);
+        this.currentUserSubject.next(this.token.user);
         this.setPermissions(this.permission);
       }),
       catchError(this.handleError));
@@ -48,24 +48,28 @@ export class AuthService {
     this.cookieService.delete('access_token', '/');
     this.cookieService.delete('refresh_token', '/');
     localStorage.removeItem('user');
-    this.userSubject.next(null as any);
+    this.currentUserSubject.next(null as any);
   }
 
   public getDecodedAccessToken(token: string): IAccessToken {
     return JSON.parse(window.atob(token.split('.')[1])) as IAccessToken;
   }
 
-  public getCurrentUser(): User {
-    return this.userSubject.value;
+  public getCurrentUserSubject(): User {
+    return this.currentUserSubject.value;
+  }
+
+  public getCurrentUser(): Observable<User> {
+    return this.currentUser;
   }
 
   public setPermissions(permission: IPermission): void {
-    this.userSubject.value.user_permissions.push(permission);
-    localStorage.setItem('user', JSON.stringify(this.userSubject.value));
+    this.currentUserSubject.value.user_permissions.push(permission);
+    localStorage.setItem('user', JSON.stringify(this.currentUserSubject.value));
   }
 
   public getUserToLocalStorage(): void {
-    this.userSubject.next(JSON.parse(localStorage.getItem('user')!));
+    this.currentUserSubject.next(JSON.parse(localStorage.getItem('user')!));
   }
 
   public setUserToLocalStorage(user: any): void {
@@ -77,7 +81,7 @@ export class AuthService {
   }
 
   public hasPermission(permission: string): boolean {
-    return this.userSubject.value.user_permissions.some(p => p.codename === permission);
+    return this.currentUserSubject.value.user_permissions.some(p => p.codename === permission);
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

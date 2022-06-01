@@ -17,7 +17,7 @@ export class PermissionsDirective implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.user.subscribe((user: User) => {
+    this.authService.currentUser.subscribe((user: User) => {
       this.currentUser = user;
       this.updateView();
     });
