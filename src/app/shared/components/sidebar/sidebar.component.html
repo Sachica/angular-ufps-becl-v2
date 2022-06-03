@@ -6,7 +6,7 @@
     <div class="sidebar-content">
       <div class="user">
         <div class="avatar-sm float-left mr-2">
-          <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+          <img src="{{currentUser.picture}}" alt="..." class="avatar-img rounded-circle">
         </div>
         <div class="info">
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -21,17 +21,12 @@
           <div class="collapse in" id="collapseExample">
             <ul class="nav">
               <li>
-                <a href="#profile">
+                <a routerLink="../account/profile">
                   <span class="link-collapse">My Profile</span>
                 </a>
               </li>
               <li>
-                <a href="#edit">
-                  <span class="link-collapse">Edit Profile</span>
-                </a>
-              </li>
-              <li>
-                <a href="#settings">
+                <a routerLink="../account/settings">
                   <span class="link-collapse">Settings</span>
                 </a>
               </li>
@@ -40,8 +35,8 @@
         </div>
       </div>
       <ul class="nav">
-        <li class="nav-item active" *appPermissions="['dashboard']">
-          <a href="index.html">
+        <li routerLinkActive="active" class="nav-item" *appPermissions="['dashboard']">
+          <a routerLink="../admin/dashboard">
             <i class="fas fa-home"></i>
             <p>Dashboard</p>
             <span class="badge badge-count">5</span>

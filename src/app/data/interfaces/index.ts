@@ -6,6 +6,8 @@ export { IAccessToken } from './access-token.interface';
 
 export { IUser } from './user.interface';
 
+export { IProgram } from './program.interface';
+
 export { IGroup } from './group.interface';
 
 export { IPermission } from './permission.interface';
