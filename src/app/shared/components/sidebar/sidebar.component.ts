@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@modules/auth/services/auth.service';
 import { User } from '@data/models';
 
 @Component({
@@ -12,13 +11,11 @@ export class SidebarComponent implements OnInit {
 
   public currentUser: User;
 
-  constructor(private authService: AuthService) { }
+  constructor() {
+    this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null;
+   }
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((user: User) => {
-      this.currentUser = user;
-      this.currentUser.picture = this.currentUser.picture || 'assets/img/profile.jpg';
-    });
   }
 
 }

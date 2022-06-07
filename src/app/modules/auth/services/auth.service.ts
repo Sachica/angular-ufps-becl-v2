@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment';
 import { IAccessToken, IToken, ITokenDto, IPermission } from '@data/interfaces';
-import { User } from '@data/models';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { User } from '@data/models';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private readonly URL = `${environment.ngrokUrlAuth}sign_in/`;
+  private readonly URL = `${environment.baseUrlAuth}sign_in_up/`;
   private currentUserSubject: BehaviorSubject<User>
   public currentUser: Observable<User>
   private helper: JwtHelperService;

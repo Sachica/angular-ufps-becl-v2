@@ -1,14 +1,16 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { User } from '@data/models';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[appPermissions]'
 })
-export class PermissionsDirective implements OnInit {
+export class PermissionsDirective implements OnInit, OnDestroy {
 
   private currentUser: User;
   private permissions: string[];
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -17,10 +19,14 @@ export class PermissionsDirective implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((user: User) => {
-      this.currentUser = user;
-      this.updateView();
-    });
+    this.authService.currentUser
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((user: User) => {
+        this.currentUser = user;
+        this.updateView();
+      });
   }
 
   @Input()
@@ -49,6 +55,11 @@ export class PermissionsDirective implements OnInit {
       }
     }
     return true;
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

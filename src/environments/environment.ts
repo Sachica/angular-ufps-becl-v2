@@ -4,11 +4,10 @@
 
 export const environment = {
   production: false,
-  googleClientId: '132017815030-7sibgsgreh1u9t7bftdkcji6lbh5puag.apps.googleusercontent.com',
-  baseUrlAuth: 'http://localhost:8000/auth/api/v1/',
-  baseUrlEntrance: 'http://localhost:8001/entrance/api/v1/',
-  baseUrlUser: 'http://localhost:8000/users/api/v1/',
-  ngrokUrlAuth: 'https://4aa7-200-93-148-32.ngrok.io/auth/api/v1/',
+  googleClientId: '215382460353-qq2lc93pf3mdtvbg8560d7lumitronl8.apps.googleusercontent.com',
+  baseUrlAuth: 'http://164.92.115.102:8000/auth/api/v1/',
+  baseUrlEntrance: 'http://164.92.115.102:8001/entrance/api/v1/',
+  baseUrlUser: 'http://164.92.115.102:8000/users/api/v1/'
 };
 
 /*

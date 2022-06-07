@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { User } from '@data/models';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,11 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private socialAuthService: SocialAuthService, private authService: AuthService) { }
+  public currentUser: User;
+
+  constructor(private socialAuthService: SocialAuthService, private authService: AuthService) {
+    this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null;
+   }
 
   ngOnInit(): void {
   }
