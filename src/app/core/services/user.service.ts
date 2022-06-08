@@ -14,7 +14,9 @@ export class UserService {
   private readonly URL = `${environment.baseUrlUser}profile/`;
   public currentUser: User;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null;
+  }
 
   public userProfile(): Observable<User> {
     return this.http.get<User>(this.URL).pipe(

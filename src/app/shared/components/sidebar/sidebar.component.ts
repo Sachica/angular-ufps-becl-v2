@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { UserService } from '@core/services/user.service';
 import { User } from '@data/models';
 
 @Component({
@@ -11,11 +13,10 @@ export class SidebarComponent implements OnInit {
 
   public currentUser: User;
 
-  constructor() {
-    this.currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null;
-   }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
+    this.currentUser = this.userService.currentUser;
   }
 
 }

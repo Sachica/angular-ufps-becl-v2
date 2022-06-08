@@ -1,8 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { UserService } from '@core/services/user.service';
 import { Router } from '@angular/router';
 import { ITokenDto, IToken } from '@data/interfaces';
+import { User } from '@data/models';
+
 
 @Component({
   selector: 'app-login',
@@ -13,7 +17,12 @@ export class LoginComponent implements OnInit {
 
   public tokenDto: ITokenDto = {} as ITokenDto;
 
-  constructor(private socialAuthService: SocialAuthService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private socialAuthService: SocialAuthService,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -29,7 +38,9 @@ export class LoginComponent implements OnInit {
 
   public signIn(data: ITokenDto): void {
     this.authService.signIn(data).subscribe((token: IToken) => {
-      this.router.navigate(['/account/profile']);
+      this.userService.userProfile().subscribe((user: User) => {
+        this.router.navigate(['/account/profile']);
+      });
     });
   }
 

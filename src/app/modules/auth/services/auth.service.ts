@@ -50,6 +50,7 @@ export class AuthService {
     this.cookieService.delete('access_token', '/');
     this.cookieService.delete('refresh_token', '/');
     localStorage.removeItem('user');
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null as any);
   }
 
