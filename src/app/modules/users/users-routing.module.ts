@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
+import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AuthGuard } from '@core/guards/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -11,14 +13,20 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: 'dashboard',
-        component: DashboardComponent,
+        path: 'users-list',
+        component: UsersListComponent,
         canActivate: [AuthGuard],
-        data: { title: 'Dashboard', permission: 'dashboard' }
+        data: { title: 'Users List', permission: 'listUsers' },
+      },
+      {
+        path: 'user-detail/:id',
+        component: UserEditComponent,
+        canActivate: [AuthGuard],
+        data: { title: 'User Detail', permission: 'detailUser' },
       },
       {
         path: '**',
-        redirectTo: 'dashboard',
+        redirectTo: 'users-list',
         pathMatch: 'full'
       }
     ]
@@ -29,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class UsersRoutingModule { }

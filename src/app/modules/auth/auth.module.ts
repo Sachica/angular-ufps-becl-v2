@@ -9,6 +9,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '@env/environment';
 
+
 @NgModule({
   declarations: [
     LoginComponent,

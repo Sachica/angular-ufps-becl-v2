@@ -1,7 +1,8 @@
 import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+
 import { User } from '@data/models';
 import { AuthService } from '@modules/auth/services/auth.service';
-import { Subject, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[appPermissions]'
@@ -42,7 +43,6 @@ export class PermissionsDirective implements OnInit, OnDestroy {
       this.viewContainer.clear();
     }
   }
-
 
   private hasPermissions(): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
