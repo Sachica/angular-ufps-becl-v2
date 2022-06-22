@@ -9,6 +9,7 @@ export class User implements IUser {
     public email: string,
     public picture: string,
     public is_active: boolean,
+    public is_staff: boolean,
     public is_superuser: boolean,
     public program: IProgram,
     public groups: IGroup[],

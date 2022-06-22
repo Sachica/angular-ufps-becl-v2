@@ -10,6 +10,7 @@ export interface IUser {
   email: string;
   picture: string;
   is_active: boolean;
+  is_staff: boolean;
   is_superuser: boolean;
   program: IProgram;
   groups: IGroup[];
