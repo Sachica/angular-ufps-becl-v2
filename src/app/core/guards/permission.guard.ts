@@ -3,13 +3,15 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 
 import { AuthService } from '@modules/auth/services/auth.service';
+import { PermissionService } from '@modules/auth/services/permission.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class PermissionGuard implements CanActivate {
 
   constructor(
+    private permissionService: PermissionService,
     private authService: AuthService,
     private router: Router
   ) { }
@@ -17,14 +19,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.checkUserLogin();
+    return this.checkPermission(next, state);
   }
 
-  checkUserLogin(): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true;
-    }
-    this.router.navigate(['/auth/login'], { queryParams: { returnUrl: window.location.pathname } });
+  checkPermission(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.permissionService.hasPermission(next)) return true;
+    this.authService.logout();
+    this.router.navigateByUrl('/not-found/page-404');
     return false;
   }
 

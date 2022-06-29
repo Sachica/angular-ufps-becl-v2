@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
-import { AuthGuard } from '@core/guards/auth.guard';
+import { PermissionGuard } from '@core/guards/permission.guard';
 
 
 const routes: Routes = [
@@ -15,13 +15,13 @@ const routes: Routes = [
       {
         path: 'users-list',
         component: UsersListComponent,
-        canActivate: [AuthGuard],
+        canActivate: [PermissionGuard],
         data: { title: 'Users List', permission: 'listUsers' },
       },
       {
         path: 'user-detail/:id',
         component: UserEditComponent,
-        canActivate: [AuthGuard],
+        canActivate: [PermissionGuard],
         data: { title: 'User Detail', permission: 'detailUser' },
       },
       {
