@@ -13,13 +13,16 @@ import { IUser } from '@data/interfaces';
 export class UsersListComponent implements OnInit {
 
   public users: IUser[] = [];
+  public columns: string[] = ['id', 'username', 'first_name', 'last_name', 'email', 'picture', 'is_active', 'is_staff', 'is_superuser'];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(
-    private usersService: UsersService
-  ) { }
+  constructor(private usersService: UsersService) {
+    this.getUsers();
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  public getUsers(): void {
     this.usersService.getUsers()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
@@ -39,9 +42,7 @@ export class UsersListComponent implements OnInit {
               groups,
               user_permissions
             };
-          }
-        );
-        console.table(this.users);
+          });
       });
   }
 
