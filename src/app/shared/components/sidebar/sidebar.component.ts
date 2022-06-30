@@ -25,6 +25,10 @@ export class SidebarComponent implements OnInit {
     this.currentUser = this.userService.currentUser;
   }
 
+  public isCarnets(): boolean {
+    return this.authService.checkPermission('qr-input') || this.authService.checkPermission('qr-output');
+  }
+
   public logOut(): void {
     this.socialAuthService.signOut();
     this.authService.logout();

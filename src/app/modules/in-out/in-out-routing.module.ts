@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
 import { QrInputComponent } from './pages/qr-input/qr-input.component';
 import { QrOutputComponent } from './pages/qr-output/qr-output.component';
-import { AuthGuard } from '@core/guards/auth.guard';
 import { PermissionGuard } from '@core/guards/permission.guard';
 
 const routes: Routes = [
@@ -15,13 +14,13 @@ const routes: Routes = [
       {
         path: 'qr-input',
         component: QrInputComponent,
-        canActivate: [AuthGuard, PermissionGuard],
+        canActivate: [PermissionGuard],
         data: { title: 'Profile', permission: 'qr-input' }
       },
       {
         path: 'qr-output',
         component: QrOutputComponent,
-        canActivate: [AuthGuard, PermissionGuard],
+        canActivate: [PermissionGuard],
         data: { title: 'Settings', permission: 'qr-output' }
       },
       {
