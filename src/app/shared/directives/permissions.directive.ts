@@ -46,15 +46,8 @@ export class PermissionsDirective implements OnInit, OnDestroy {
 
   private hasPermissions(): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
-    if (!isLoggedIn) {
-      return false;
-    }
-    for (const permission of this.permissions) {
-      if (!this.currentUser.user_permissions.some(p => p.codename === permission)) {
-        return false;
-      }
-    }
-    return true;
+    const hasPermissions = this.permissions.every(permission => this.authService.checkPermission(permission));
+    return isLoggedIn && hasPermissions;
   }
 
   ngOnDestroy() {

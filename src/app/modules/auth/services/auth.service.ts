@@ -20,13 +20,19 @@ export class AuthService {
   public currentUser: Observable<User>
   private helper: JwtHelperService;
   private token: IAccessToken = {} as IAccessToken;
-  private permission: IPermission;
+  private permissions: IPermission[];
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
     this.currentUser = this.currentUserSubject.asObservable();
     this.helper = new JwtHelperService();
-    this.permission = { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 } as IPermission;
+    this.permissions = [
+      { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 },
+      { id: 2, name: 'carnets', codename: 'qr-input', content_type_id: 2 },
+      { id: 3, name: 'carnets', codename: 'qr-output', content_type_id: 3 },
+      { id: 4, name: 'admin', codename: 'list-users', content_type_id: 4 },
+      { id: 5, name: 'admin', codename: 'detail-user', content_type_id: 5 },
+    ];
   }
 
   public signIn(data: ITokenDto): Observable<IToken> {
@@ -37,7 +43,7 @@ export class AuthService {
         this.cookieService.set('refresh_token', res.refresh, new Date(this.token.exp * 1000), '/');
         this.setUserToLocalStorage(this.token.user);
         this.currentUserSubject.next(this.token.user);
-        this.setPermissions(this.permission);
+        this.setPermissions(this.permissions);
       }),
       catchError(this.handleError));
   }
@@ -51,7 +57,7 @@ export class AuthService {
     this.cookieService.delete('refresh_token', '/');
     localStorage.removeItem('user');
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null as any);
+    this.currentUserSubject.next({} as User);
   }
 
   public getDecodedAccessToken(token: string): IAccessToken {
@@ -66,8 +72,8 @@ export class AuthService {
     return this.currentUser;
   }
 
-  public setPermissions(permission: IPermission): void {
-    this.currentUserSubject.value.user_permissions.push(permission);
+  public setPermissions(permissions: IPermission[]): void {
+    this.currentUserSubject.value.user_permissions = permissions;
     localStorage.setItem('user', JSON.stringify(this.currentUserSubject.value));
   }
 
@@ -83,7 +89,11 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('data')!);
   }
 
-  public hasPermission(permission: string): boolean {
+  public hasPermission(component: any): boolean {
+    return this.checkPermission(component.data.permission);
+  }
+
+  public checkPermission(permission: string): boolean {
     return this.currentUserSubject.value.user_permissions.some(p => p.codename === permission);
   }
 

@@ -16,7 +16,6 @@ export class PermissionService {
   constructor(private authService: AuthService) {
     this.authService.currentUser.subscribe((user: User) => {
       this.permissions = user.user_permissions;
-      console.table(this.permissions);
     });
   }
 

@@ -11,8 +11,8 @@ import { PermissionService } from '@modules/auth/services/permission.service';
 export class PermissionGuard implements CanActivate {
 
   constructor(
-    private permissionService: PermissionService,
     private authService: AuthService,
+    private permissionService: PermissionService,
     private router: Router
   ) { }
 
