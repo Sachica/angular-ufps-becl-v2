@@ -15,13 +15,13 @@ const routes: Routes = [
         path: 'qr-input',
         component: QrInputComponent,
         canActivate: [PermissionGuard],
-        data: { title: 'Profile', permission: 'qr-input' }
+        data: { title: 'QR Input', permission: 'reader_qr_entrance' }
       },
       {
         path: 'qr-output',
         component: QrOutputComponent,
         canActivate: [PermissionGuard],
-        data: { title: 'Settings', permission: 'qr-output' }
+        data: { title: 'QR Output', permission: 'reader_qr_exit' }
       },
       {
         path: '**',

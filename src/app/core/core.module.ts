@@ -27,7 +27,15 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule
   ],
   exports: [
-    DatatablesComponent
+    DatatablesComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule
   ]
 })
 export class CoreModule { }

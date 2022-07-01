@@ -16,13 +16,13 @@ const routes: Routes = [
         path: 'users-list',
         component: UsersListComponent,
         canActivate: [PermissionGuard],
-        data: { title: 'Users List', permission: 'list-users' }
+        data: { title: 'Users List', permission: 'user_list' }
       },
       {
         path: 'user-detail/:id',
         component: UserEditComponent,
         canActivate: [PermissionGuard],
-        data: { title: 'User Detail', permission: 'detail-user' }
+        data: { title: 'User Detail', permission: 'user_edit' }
       },
       {
         path: '**',

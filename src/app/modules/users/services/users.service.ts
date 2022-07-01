@@ -12,12 +12,18 @@ export class UsersService {
 
   private readonly URL = `${environment.baseUrlUser}users/`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   public getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.URL);
+  }
+
+  public getUser(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.URL}${id}`);
+  }
+
+  public updateUser(user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(`${this.URL}${user.id}`, user);
   }
 
 }

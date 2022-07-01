@@ -1,32 +1,36 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { UsersService } from '@modules/users/services/users.service';
 import { IUser } from '@data/interfaces';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { UsersService } from '@modules/users/services/users.service';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './users-list.component.html',
-  styles: [
-  ]
+  styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
 
-  public users: IUser[] = [];
-  public columns: string[] = ['id', 'username', 'first_name', 'last_name', 'email', 'picture', 'is_active', 'is_staff', 'is_superuser'];
+  public displayedColumns: string[] = ['id', 'picture', 'first_name', 'last_name', 'email', 'is_active', 'program', 'actions'];
+  public dataSource: MatTableDataSource<IUser>;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private usersService: UsersService) {
-    this.getUsers();
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit(): void { }
+  constructor(
+    private usersService: UsersService
+  ) { }
 
-  public getUsers(): void {
+  ngOnInit(): void {
     this.usersService.getUsers()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        this.users = data.map(
+        let users: IUser[] = data.map(
           ({ id, username, first_name, last_name, email, picture, is_active, is_staff, is_superuser, program, groups, user_permissions }: IUser) => {
             return {
               id,
@@ -43,7 +47,24 @@ export class UsersListComponent implements OnInit {
               user_permissions
             };
           });
+        console.table(users);
+        this.dataSource = new MatTableDataSource(users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearFilter() {
+    this.dataSource.filter = '';
   }
 
   ngOnDestroy(): void {

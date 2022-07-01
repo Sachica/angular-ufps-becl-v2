@@ -27,11 +27,12 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
     this.helper = new JwtHelperService();
     this.permissions = [
-      { id: 1, name: 'admin', codename: 'dashboard', content_type_id: 1 },
-      { id: 2, name: 'carnets', codename: 'qr-input', content_type_id: 2 },
-      { id: 3, name: 'carnets', codename: 'qr-output', content_type_id: 3 },
-      { id: 4, name: 'admin', codename: 'list-users', content_type_id: 4 },
-      { id: 5, name: 'admin', codename: 'detail-user', content_type_id: 5 },
+      { id: 41, name: 'Reader Entrance QR', codename: 'reader_qr_entrance', content_type_id: 7 },
+      { id: 42, name: 'Reader Exit QR', codename: 'reader_qr_exit', content_type_id: 7 },
+      { id: 43, name: 'Manage Locker', codename: 'locker', content_type_id: 7 },
+      { id: 44, name: 'User List', codename: 'user_list', content_type_id: 7 },
+      { id: 45, name: 'User Edit', codename: 'user_edit', content_type_id: 7 },
+      { id: 46, name: 'Manage Dashboard', codename: 'dashboard', content_type_id: 7 },
     ];
   }
 

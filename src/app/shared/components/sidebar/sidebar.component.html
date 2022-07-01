@@ -51,7 +51,7 @@
           </span>
           <h4 class="text-section">Modulos</h4>
         </li>
-        <li routerLinkActive="active" class="nav-item" *appPermissions="['lockers']">
+        <li routerLinkActive="active" class="nav-item" *appPermissions="['locker']">
           <a routerLink="../lockers/lockers">
             <i class="fas fa-columns"></i>
             <p>Lockers</p>
@@ -66,19 +66,19 @@
           <div class="collapse" id="base">
             <ul class="nav nav-collapse">
               <li>
-                <a routerLink="../in-out/qr-input" *appPermissions="['qr-input']">
+                <a routerLink="../in-out/qr-input" *appPermissions="['reader_qr_entrance']">
                   <span class="sub-item">Entrada</span>
                 </a>
               </li>
               <li>
-                <a routerLink="../in-out/qr-output" *appPermissions="['qr-output']">
+                <a routerLink="../in-out/qr-output" *appPermissions="['reader_qr_exit']">
                   <span class="sub-item">Salida</span>
                 </a>
               </li>
             </ul>
           </div>
         </li>
-        <li routerLinkActive="active" class="nav-item" *appPermissions="['list-users']">
+        <li routerLinkActive="active" class="nav-item" *appPermissions="['user_list']">
           <a routerLink="../users/users-list">
             <i class="fas fa-user-friends"></i>
             <p>Usuarios</p>
