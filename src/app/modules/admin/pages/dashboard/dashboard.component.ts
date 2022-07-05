@@ -1,28 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Chart, registerables } from 'chart.js';
+import { IStatistics, IGeneral } from '@data/interfaces';
+import { StatisticsService } from '@modules/admin/services/statistics.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: [
-  ]
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
   chart: any = [];
-  visitors: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  visits: any = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+  labels: string[] = [];
+  visitors: number[] = [];
+  visits: number[] = [];
 
-  constructor() {
+  constructor(private statisticsService: StatisticsService) {
     Chart.register(...registerables);
+    this.statisticsService.getStatisticsCurrent().subscribe((data: any) => {
+      this.getLabels(data);
+      this.getProperty(data, false);
+      this.getProperty(data, true);
+      this.chart.update();
+    });
   }
 
   ngOnInit(): void {
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: this.labels,
         datasets: [
           {
             label: "Visitors",
@@ -39,39 +47,26 @@ export class DashboardComponent implements OnInit {
             data: this.visits
           }
         ],
-      },
-      /*data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },*/
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
       }
     });
+  }
+
+  getLabels(obj: any): void {
+    for (let i = 1; i <= Object.keys(obj).length; i++) {
+      this.labels.push(i.toString());
+    }
+  }
+
+  getProperty(obj: any, prop: boolean): void {
+    for (const key in obj) {
+      if (prop) {
+        const value = obj[key].visits;
+        this.visits.push(value);
+      } else {
+        const value = obj[key].visitors;
+        this.visitors.push(value);
+      }
+    }
   }
 
 }

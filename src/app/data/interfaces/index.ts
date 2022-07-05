@@ -11,3 +11,7 @@ export { IProgram } from './program.interface';
 export { IGroup } from './group.interface';
 
 export { IPermission } from './permission.interface';
+
+export { IGeneral } from './general.interface';
+
+export { IStatistics } from './statistics.interface';
