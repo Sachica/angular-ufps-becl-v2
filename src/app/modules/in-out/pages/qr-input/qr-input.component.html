@@ -8,7 +8,7 @@
   </div>
   <div class="row margin">
     <div class="col-md-4 col-sm-12 d-flex justify-content-center align-items-center">
-      <img src="assets/img/userProfile.svg" alt="foto de perfil" class="img-fluid rounded-circle">
+      <img src="{{ user.photo }}" alt="foto de perfil" class="img-fluid rounded-circle">
     </div>
     <div class="col">
       <div class="table-responsive">
@@ -16,19 +16,19 @@
           <tbody>
             <tr>
               <th><img src="assets/img/userId.svg" alt="User ID"></th>
-              <td class="userData">1151811</td>
+              <td class="userData">{{ user.code }}</td>
             </tr>
             <tr>
               <th><img src="assets/img/userName.svg" alt="User Name"></th>
-              <td class="userData">Ronal Eduardo Benitez Mejia</td>
+              <td class="userData">{{ user.fullName }}</td>
             </tr>
             <tr>
               <th><img src="assets/img/userUniversity.svg" alt="User University"></th>
-              <td class="userData">UFPS</td>
+              <td class="userData">{{ user.program }}</td>
             </tr>
             <tr>
               <th><img src="assets/img/userStatus.svg" alt="User Status"></th>
-              <td class="userData">Activo</td>
+              <td class="userData">{{ user.status }}</td>
             </tr>
           </tbody>
         </table>

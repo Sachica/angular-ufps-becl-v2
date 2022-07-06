@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { InOutService } from '@modules/in-out/services/in-out.service';
+import { UsersService } from '@modules/users/services/users.service';
 
 @Component({
   selector: 'app-qr-input',
@@ -11,15 +12,20 @@ import { InOutService } from '@modules/in-out/services/in-out.service';
 export class QrInputComponent implements OnInit, OnDestroy {
 
   style: any = this._renderer2.createElement('style');
-  obj: any = {
-    token: '',
-  };
+
+  obj: Partial<IInOut> = {};
+
+  user: Partial<IUser> = {};
 
   constructor(
     private inOutService: InOutService,
+    private usersService: UsersService,
     private _renderer2: Renderer2,
     @Inject(DOCUMENT) private _document: Document
-  ) { }
+  ) {
+    this.obj.token = '';
+    this.setDefault();
+  }
 
   ngOnInit(): void {
     this.style.innerHTML = `
@@ -72,14 +78,46 @@ export class QrInputComponent implements OnInit, OnDestroy {
   onChange(event: any) {
     this.obj.token = event.target.value;
     this.onSubmit();
-    const input = document.getElementById('qrInput') as HTMLInputElement;
-    input.value = '';
+    (document.getElementById('qrInput') as HTMLInputElement).value = '';
   }
 
   onSubmit() {
     this.inOutService.getConfirmEntrance(this.obj).subscribe((data: any) => {
-      console.log(data);
+      this.usersService.getUser(data.user_id).subscribe((user: any) => {
+        this.user.code = user.id;
+        this.user.fullName = user.first_name + ' ' + user.last_name;
+        this.user.photo = user.picture.split('=')[0];
+        this.user.program = user.program.name;
+        this.user.status = (user.is_active) ? 'Activo' : 'Inactivo';
+      });
     });
+    this.setTimeout();
   }
 
+  setTimeout() {
+    setTimeout(() => {
+      this.setDefault();
+    }, 5000);
+  }
+
+  setDefault(): void {
+    this.user.code = '----';
+    this.user.fullName = '----';
+    this.user.photo = 'assets/img/userProfile.svg';
+    this.user.program = '----';
+    this.user.status = '----';
+  }
+
+}
+
+export interface IUser {
+  code: string;
+  fullName: string;
+  photo: string;
+  program: string;
+  status: string;
+}
+
+export interface IInOut {
+  token: string;
 }
