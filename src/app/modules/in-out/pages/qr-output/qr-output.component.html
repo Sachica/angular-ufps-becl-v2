@@ -1,1 +1,38 @@
-<p>qr-output works!</p>
+<div class="container">
+  <div class="row mt-5">
+    <h1 class="titulo w-100">Bienvenido</h1>
+  </div>
+  <div class="row mt-5">
+    <input type="text" class="input form-control d-flex justify-content-center" id="qrOutput"
+      placeholder="Escanear Codigo QR" (change)="onChange($event)" autocomplete="off" autofocus>
+  </div>
+  <div class="row margin">
+    <div class="col-md-4 col-sm-12 d-flex justify-content-center align-items-center">
+      <img src="{{ user.photo }}" alt="foto de perfil" class="img-fluid rounded-circle">
+    </div>
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-borderless table-hover">
+          <tbody>
+            <tr>
+              <th><img src="assets/img/in-out/icons/userId.svg" alt="User ID"></th>
+              <td class="userData">{{ user.code }}</td>
+            </tr>
+            <tr>
+              <th><img src="assets/img/in-out/icons/userName.svg" alt="User Name"></th>
+              <td class="userData">{{ user.fullName }}</td>
+            </tr>
+            <tr>
+              <th><img src="assets/img/in-out/icons/userUniversity.svg" alt="User University"></th>
+              <td class="userData">{{ user.program }}</td>
+            </tr>
+            <tr>
+              <th><img src="assets/img/in-out/icons/userStatus.svg" alt="User Status"></th>
+              <td class="userData">{{ user.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

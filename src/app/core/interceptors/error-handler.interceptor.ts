@@ -17,9 +17,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if ([401, 403, 404].indexOf(error.status) !== -1) {
+        if ([401, 403, 404, 500].indexOf(error.status) !== -1) {
           this.authService.logout();
-          this.router.navigateByUrl('/not-found/page-404' + error.status);
+          this.router.navigateByUrl(`/not-found/page-${error.status}`);
         }
         return throwError(() => error);
       })

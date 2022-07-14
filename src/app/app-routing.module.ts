@@ -58,6 +58,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled',
     useHash: true,
     enableTracing: false,
     preloadingStrategy: PreloadAllModules

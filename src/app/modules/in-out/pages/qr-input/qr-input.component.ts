@@ -30,7 +30,7 @@ export class QrInputComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.style.innerHTML = `
       body {
-        background-image: url('assets/img/fondo.svg');
+        background-image: url('assets/img/in-out/fondo.svg');
         background-color: white;
         background-repeat: no-repeat;
         background-size: cover;
@@ -97,13 +97,13 @@ export class QrInputComponent implements OnInit, OnDestroy {
   setTimeout() {
     setTimeout(() => {
       this.setDefault();
-    }, 5000);
+    }, 10000);
   }
 
   setDefault(): void {
     this.user.code = '----';
     this.user.fullName = '----';
-    this.user.photo = 'assets/img/userProfile.svg';
+    this.user.photo = 'assets/img/in-out/icons/userProfile.svg';
     this.user.program = '----';
     this.user.status = '----';
   }

@@ -7,7 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
-import { environment } from '@env/environment';
+import { environment } from '@env/environment.development';
 
 
 @NgModule({

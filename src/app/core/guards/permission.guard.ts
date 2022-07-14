@@ -25,7 +25,7 @@ export class PermissionGuard implements CanActivate {
   checkPermission(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.permissionService.hasPermission(next)) return true;
     this.authService.logout();
-    this.router.navigateByUrl('/not-found/page-404');
+    this.router.navigateByUrl('/not-found/page-401');
     return false;
   }
 

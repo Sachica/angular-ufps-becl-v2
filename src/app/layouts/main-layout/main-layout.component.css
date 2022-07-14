@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&display=swap");
+
+.navbar-brand > img {
+  height: 60px;
+  width: 200px;
+  object-fit: contain;
+}
+
+li > a {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em !important;
+  text-decoration: none;
+  color: #fff;
+}
+
+.dropdown-item {
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.horario {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+i {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+span {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em;
+}
+
+footer .container {
+  color: #fff;
+  padding: 2em;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
+  border-bottom: 3px solid #fff;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer li {
+  margin-bottom: 0.5em;
+}
+
+.list-inline-item {
+  margin-right: 1em;
+}
+
+.descripcion {
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+}

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from '@env/environment';
+import { environment } from '@env/environment.development';
 import { IAccessToken, IToken, ITokenDto, IPermission } from '@data/interfaces';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from '@data/models';

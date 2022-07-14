@@ -1,2 +1,151 @@
-<p>main-layout works!</p>
+<header class="site-header bg-dark text-white-0_5">
+  <div class="container">
+    <div class="row align-items-center justify-content-between mx-0">
+      <ul class="list-inline d-none d-lg-block mb-0">
+        <li class="list-inline-item mr-3">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-clock mr-2"></i>
+            <span class="horario">Horario de atención: Lunes a viernes de 6:00 a.m a 9:00 p.m - Sábados de 8:00 a.m a
+              6:00 p.m</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
+          <a href="https://administrativos.ufps.edu.co/" target="_blank" rel="noopener noreferrer">Ir a DIVISIST</a>
+        </li>
+        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
+          <a routerLink="/auth/login">Iniciar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="/assets/img/logo-new-ufps-xl.png" alt="logo BECL">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdownNosotros" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Nosotros
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownNosotros">
+          <a class="dropdown-item" [routerLink]="['/']" fragment="historia">Historia</a>
+          <a class="dropdown-item" [routerLink]="['/']" fragment="mision">Misión</a>
+          <a class="dropdown-item" [routerLink]="['/']" fragment="vision">Visión</a>
+          <a class="dropdown-item" [routerLink]="['/']" fragment="equipo">Equipo</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://alejandria.ufps.edu.co/" target="_blank" rel="noopener noreferrer">Catálogo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://alejandria.ufps.edu.co:81/" target="_blank" rel="noopener noreferrer">Koha</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdownBibliotecaVirtual" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Biblioteca Virtual
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownBibliotecaVirtual">
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Bases Suscripción</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">E-Libros</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Repositorios</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Revistas Libre Acceso</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Bases Libre Acceso</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Capacitaciones</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Webinars</a>
+          <a class="dropdown-item" href="https://login.bdbiblioteca.ufps.edu.co/public/menu.htm" target="_blank"
+            rel="noopener noreferrer">Convocatorias</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']" fragment="contacto">Contacto</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <router-outlet></router-outlet>
+
+<footer>
+  <div class="bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm col-md">
+          <img src="/assets/img/logo-new-ufps-xl.png" alt="Logo BECL" height="100">
+          <div class="mt-2">
+            <p class="descripcion">Biblioteca Eduardo Cote Lamus</p>
+          </div>
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a href="" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://twitter.com/bibliotecaUFPS" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/user/beclufps" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm col-md">
+          <h2>Nosotros</h2>
+          <ul class="list-unstyled text-small">
+            <li><a [routerLink]="['/']" fragment="historia">Historia</a></li>
+            <li><a [routerLink]="['/']" fragment="mision">Misión</a></li>
+            <li><a [routerLink]="['/']" fragment="vision">Visión</a></li>
+            <li><a [routerLink]="['/']" fragment="equipo">Equipo</a></li>
+          </ul>
+        </div>
+        <div class="col-sm col-md">
+          <h2>Explora</h2>
+          <ul class="list-unstyled text-small">
+            <li><a href="http://alejandria.ufps.edu.co/" target="_blank" rel="noopener noreferrer">Catálogo</a></li>
+            <li><a href="http://alejandria.ufps.edu.co:81/" target="_blank" rel="noopener noreferrer">Koha</a></li>
+            <li><a href="https://administrativos.ufps.edu.co/" target="_blank" rel="noopener noreferrer">Divisist</a>
+            </li>
+            <li><a href="http://nomina.ufps.edu.co:9191/nominaufps" target="_blank" rel="noopener noreferrer">Sistema de
+                Nómina</a></li>
+            <li><a href="http://ugad.ufps.edu.co:8084/datarsoft001/home.ufps" target="_blank"
+                rel="noopener noreferrer">DatarSoft</a></li>
+          </ul>
+        </div>
+        <div class="col-sm col-md">
+          <h2>Contáctanos</h2>
+          <address>
+            Avenida Gran Colombia No. 12E-96 Barrio Colsag, <br />
+            San José de Cúcuta - Colombia <br />
+            Teléfono (607)(7) 5776655 <br />
+            ext. 133-136-252-295 <br /> <br />
+
+            Solicitudes y correspondencia<br>
+            <a href="mailto:biblioteca@ufps.edu.co" class="">biblioteca@ufps.edu.co</a><br><br>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center py-3">
+    <span>© 2022 Biblioteca Virtual UFPS. Todos los derechos reservados.</span>
+  </div>
+
+</footer>
