@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./ /app/
 RUN npm install
 ARG configuration=production
-RUN npm run build -- --prod --configuration=$configuration
+RUN npm run build -- --configuration=$configuration
 
 ### STAGE 2:RUN ###
 FROM nginx:latest as nginx
