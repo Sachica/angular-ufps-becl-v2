@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PermissionGuard } from '@core/guards/permission.guard';
+import { RolGuard } from '@core/guards/rol.guard';
 
 const routes: Routes = [
   {
@@ -13,8 +13,8 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [PermissionGuard],
-        data: { title: 'Dashboard', permission: 'dashboard' }
+        canActivate: [RolGuard],
+        data: { title: 'Dashboard', rol: 'ADMIN' }
       },
       {
         path: '**',

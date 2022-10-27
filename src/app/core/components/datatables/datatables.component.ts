@@ -65,14 +65,12 @@ const ELEMENT_DATA: IUser[] = [
       "id": 1,
       "name": "Ingenieria de Sistemas"
     },
-    "groups": [
+    "roles": [
       {
         "id": 2,
-        "name": "pregrado",
-        "permissions": []
+        "name": "pregrado"
       }
-    ],
-    "user_permissions": []
+    ]
   },
   {
     "id": 2,
@@ -88,19 +86,16 @@ const ELEMENT_DATA: IUser[] = [
       "id": 1,
       "name": "Ingenieria de Sistemas"
     },
-    "groups": [
+    "roles": [
       {
         "id": 1,
-        "name": "staff",
-        "permissions": []
+        "name": "staff"
       },
       {
         "id": 2,
-        "name": "pregrado",
-        "permissions": []
+        "name": "pregrado"
       }
-    ],
-    "user_permissions": []
+    ]
   },
   {
     "id": 3,
@@ -116,18 +111,15 @@ const ELEMENT_DATA: IUser[] = [
       "id": 1,
       "name": "Ingenieria de Sistemas"
     },
-    "groups": [
+    "roles": [
       {
         "id": 1,
-        "name": "staff",
-        "permissions": []
+        "name": "staff"
       },
       {
         "id": 2,
-        "name": "pregrado",
-        "permissions": []
+        "name": "pregrado"
       }
-    ],
-    "user_permissions": []
+    ]
   }
 ];

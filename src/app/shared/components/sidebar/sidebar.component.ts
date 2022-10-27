@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isCarnetsEnabled = this.authService.checkPermission('reader_qr_entrance') || this.authService.checkPermission('reader_qr_exit');
+    this.isCarnetsEnabled = this.authService.checkRol('QR_ENTRANCE') || this.authService.checkRol('QR_EXIT');
     this.currentUser = this.userService.currentUser;
   }
 

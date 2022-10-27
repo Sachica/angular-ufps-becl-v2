@@ -1,5 +1,4 @@
-import { IGroup } from './group.interface';
-import { IPermission } from './permission.interface';
+import { IRol } from './rol.interface';
 import { IProgram } from './program.interface';
 
 export interface IUser {
@@ -13,6 +12,5 @@ export interface IUser {
   is_staff: boolean;
   is_superuser: boolean;
   program: IProgram;
-  groups: IGroup[];
-  user_permissions: IPermission[];
+  roles: IRol[];
 }

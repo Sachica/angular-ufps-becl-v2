@@ -3,28 +3,28 @@ import { Observable } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 import { AuthService } from '@modules/auth/services/auth.service';
-import { IPermission } from '@data/interfaces';
+import { IRol } from '@data/interfaces';
 import { User } from '@data/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionService {
+export class RolService {
 
-  private permissions: IPermission[];
+  private roles: IRol[];
 
   constructor(private authService: AuthService) {
     this.authService.currentUser.subscribe((user: User) => {
-      this.permissions = user.user_permissions;
+      this.roles = user.roles;
     });
   }
 
-  public hasPermission(component: any): boolean {
-    return this.checkPermission(component.data.permission);
+  public hasRol(component: any): boolean {
+    return this.checkRol(component.data.rol);
   }
 
-  private checkPermission(permission: string): boolean {
-    return this.permissions.some(p => p.codename === permission);
+  private checkRol(rol: string): boolean {
+    return this.roles.some(p => p.name === rol);
   }
 
 }

@@ -5,12 +5,12 @@ import { User } from '@data/models';
 import { AuthService } from '@modules/auth/services/auth.service';
 
 @Directive({
-  selector: '[appPermissions]'
+  selector: '[appRoles]'
 })
-export class PermissionsDirective implements OnInit, OnDestroy {
+export class RolesDirective implements OnInit, OnDestroy {
 
   private currentUser: User;
-  private permissions: string[];
+  private roles: string[];
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -31,23 +31,23 @@ export class PermissionsDirective implements OnInit, OnDestroy {
   }
 
   @Input()
-  set appPermissions(permissions: string[]) {
-    this.permissions = permissions;
+  set appRoles(roles: string[]) {
+    this.roles = roles;
     this.updateView();
   }
 
   private updateView(): void {
-    if (this.currentUser && this.hasPermissions()) {
+    if (this.currentUser && this.hasRoles()) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();
     }
   }
 
-  private hasPermissions(): boolean {
+  private hasRoles(): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
-    const hasPermissions = this.permissions.every(permission => this.authService.checkPermission(permission));
-    return isLoggedIn && hasPermissions;
+    const hasRoles = this.roles.every(rol => this.authService.checkRol(rol));
+    return isLoggedIn && hasRoles;
   }
 
   ngOnDestroy() {

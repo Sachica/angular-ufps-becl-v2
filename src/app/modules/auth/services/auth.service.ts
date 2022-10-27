@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '@env/environment.development';
-import { IAccessToken, IToken, ITokenDto, IPermission } from '@data/interfaces';
+import { IAccessToken, IToken, ITokenDto, IRol } from '@data/interfaces';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from '@data/models';
 
@@ -20,20 +20,13 @@ export class AuthService {
   public currentUser: Observable<User>
   private helper: JwtHelperService;
   private token: IAccessToken = {} as IAccessToken;
-  private permissions: IPermission[];
+  private roles: IRol[];
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
     this.currentUser = this.currentUserSubject.asObservable();
     this.helper = new JwtHelperService();
-    this.permissions = [
-      { id: 41, name: 'Reader Entrance QR', codename: 'reader_qr_entrance', content_type_id: 7 },
-      { id: 42, name: 'Reader Exit QR', codename: 'reader_qr_exit', content_type_id: 7 },
-      { id: 43, name: 'Manage Locker', codename: 'locker', content_type_id: 7 },
-      { id: 44, name: 'User List', codename: 'user_list', content_type_id: 7 },
-      { id: 45, name: 'User Edit', codename: 'user_edit', content_type_id: 7 },
-      { id: 46, name: 'Manage Dashboard', codename: 'dashboard', content_type_id: 7 },
-    ];
+    this.roles = [];
   }
 
   public signIn(data: ITokenDto): Observable<IToken> {
@@ -44,7 +37,7 @@ export class AuthService {
         this.cookieService.set('refresh_token', res.refresh, new Date(this.token.exp * 1000), '/');
         this.setUserToLocalStorage(this.token.user);
         this.currentUserSubject.next(this.token.user);
-        this.setPermissions(this.permissions);
+        this.setRoles(this.token.user.roles);
       }),
       catchError(this.handleError));
   }
@@ -73,8 +66,8 @@ export class AuthService {
     return this.currentUser;
   }
 
-  public setPermissions(permissions: IPermission[]): void {
-    this.currentUserSubject.value.user_permissions = permissions;
+  public setRoles(roles: IRol[]): void {
+    this.currentUserSubject.value.roles = roles;
     localStorage.setItem('user', JSON.stringify(this.currentUserSubject.value));
   }
 
@@ -90,12 +83,12 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('data')!);
   }
 
-  public hasPermission(component: any): boolean {
-    return this.checkPermission(component.data.permission);
+  public hasRol(component: any): boolean {
+    return this.checkRol(component.data.rol);
   }
 
-  public checkPermission(permission: string): boolean {
-    return this.currentUserSubject.value.user_permissions.some(p => p.codename === permission);
+  public checkRol(rol: string): boolean {
+    return this.currentUserSubject.value.roles.some(p => p.name === rol);
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

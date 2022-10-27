@@ -1,4 +1,4 @@
-import { IGroup, IPermission, IProgram, IUser } from "@data/interfaces";
+import { IRol, IProgram, IUser } from "@data/interfaces";
 
 export class User implements IUser {
   constructor(
@@ -12,7 +12,6 @@ export class User implements IUser {
     public is_staff: boolean,
     public is_superuser: boolean,
     public program: IProgram,
-    public groups: IGroup[],
-    public user_permissions: IPermission[]
+    public roles: IRol[],
   ) {}
 }

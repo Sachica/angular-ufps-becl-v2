@@ -39,7 +39,7 @@
         </div>
       </div>
       <ul class="nav">
-        <li routerLinkActive="active" class="nav-item" *appPermissions="['dashboard']">
+        <li routerLinkActive="active" class="nav-item" *appRoles="['ADMIN']">
           <a routerLink="../admin/dashboard">
             <i class="fas fa-home"></i>
             <p>Tablero</p>
@@ -51,7 +51,7 @@
           </span>
           <h4 class="text-section">Modulos</h4>
         </li>
-        <li routerLinkActive="active" class="nav-item" *appPermissions="['locker']">
+        <li routerLinkActive="active" class="nav-item" *appRoles="['LOCKER']">
           <a routerLink="../lockers/lockers">
             <i class="fas fa-columns"></i>
             <p>Lockers</p>
@@ -66,19 +66,19 @@
           <div class="collapse" id="base">
             <ul class="nav nav-collapse">
               <li>
-                <a routerLink="../in-out/qr-input" *appPermissions="['reader_qr_entrance']">
+                <a routerLink="../in-out/qr-input" *appRoles="['QR_ENTRANCE']">
                   <span class="sub-item">Entrada</span>
                 </a>
               </li>
               <li>
-                <a routerLink="../in-out/qr-output" *appPermissions="['reader_qr_exit']">
+                <a routerLink="../in-out/qr-output" *appRoles="['QR_EXIT']">
                   <span class="sub-item">Salida</span>
                 </a>
               </li>
             </ul>
           </div>
         </li>
-        <li routerLinkActive="active" class="nav-item" *appPermissions="['user_list']">
+        <li routerLinkActive="active" class="nav-item" *appRoles="['ADMIN']">
           <a routerLink="../users/users-list">
             <i class="fas fa-user-friends"></i>
             <p>Usuarios</p>

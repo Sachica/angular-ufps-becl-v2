@@ -3,27 +3,27 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 
 import { AuthService } from '@modules/auth/services/auth.service';
-import { PermissionService } from '@modules/auth/services/permission.service';
+import { RolService } from '@modules/auth/services/rol.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionGuard implements CanActivate {
+export class RolGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
-    private permissionService: PermissionService,
+    private rolService: RolService,
     private router: Router
   ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.checkPermission(next, state);
+    return this.checkRol(next, state);
   }
 
-  checkPermission(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.permissionService.hasPermission(next)) return true;
+  checkRol(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.rolService.hasRol(next)) return true;
     this.authService.logout();
     this.router.navigateByUrl('/not-found/page-401');
     return false;

@@ -8,9 +8,7 @@ export { IUser } from './user.interface';
 
 export { IProgram } from './program.interface';
 
-export { IGroup } from './group.interface';
-
-export { IPermission } from './permission.interface';
+export { IRol } from './rol.interface';
 
 export { IGeneral } from './general.interface';
 

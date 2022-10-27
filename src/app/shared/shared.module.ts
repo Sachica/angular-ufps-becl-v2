@@ -10,7 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '@env/environment.development';
-import { PermissionsDirective } from './directives/permissions.directive';
+import { RolesDirective } from './directives/roles.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { PermissionsDirective } from './directives/permissions.directive';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    PermissionsDirective
+    RolesDirective
   ],
   imports: [
     CommonModule,

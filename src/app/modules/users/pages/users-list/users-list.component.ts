@@ -31,7 +31,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         let users: IUser[] = data.map(
-          ({ id, username, first_name, last_name, email, picture, is_active, is_staff, is_superuser, program, groups, user_permissions }: IUser) => {
+          ({ id, username, first_name, last_name, email, picture, is_active, is_staff, is_superuser, program, roles }: IUser) => {
             return {
               id,
               username,
@@ -43,8 +43,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
               is_staff,
               is_superuser,
               program,
-              groups,
-              user_permissions
+              roles
             };
           });
         console.log({ users });
