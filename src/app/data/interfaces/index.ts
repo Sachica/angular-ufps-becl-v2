@@ -13,3 +13,5 @@ export { IRol } from './rol.interface';
 export { IGeneral } from './general.interface';
 
 export { IStatistics } from './statistics.interface';
+
+export { ISection, ISectionComposite, ISectionStaff } from './section.interface';

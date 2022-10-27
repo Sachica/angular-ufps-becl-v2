@@ -1,0 +1,71 @@
+<mat-form-field class="search-form-field">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search" autocomplete="off" #input>
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="input.value" (click)="clearFilter()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <!-- Section Name Column -->
+    <ng-container matColumnDef="section">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+      <td mat-cell *matCellDef="let element"> {{ element.section }} </td>
+    </ng-container>
+
+    <!-- Capacity Name Column -->
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+      <td mat-cell *matCellDef="let element"> {{ element.capacity }} </td>
+    </ng-container>
+
+    <!-- Number of staff's Column -->
+    <ng-container matColumnDef="staffs">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{ element.staffs.length }} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Loading Column -->
+    <ng-container matColumnDef="loading">
+      <td mat-footer-cell *matFooterCellDef colspan="8"> Loading data... </td>
+    </ng-container>
+
+    <!-- No data column -->
+    <ng-container matColumnDef="noData">
+      <td mat-footer-cell *matFooterCellDef colspan="8"> No data found. </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hidden': dataSource !== undefined}"></tr>
+    <tr mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hidden': !(dataSource !== undefined && dataSource.data.length == 0)}"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]"
+                 [pageSize]="5"
+                 showFirstLastButtons
+                 aria-label="Select page of users">
+  </mat-paginator>
+</div>
