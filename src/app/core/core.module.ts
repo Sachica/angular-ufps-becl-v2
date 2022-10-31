@@ -10,10 +10,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { CardsComponent } from './components/cards/cards/cards.component';
 
 @NgModule({
   declarations: [
-    DatatablesComponent
+    DatatablesComponent,
+    CardsComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { MatTableModule } from '@angular/material/table';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    CardsComponent
   ]
 })
 export class CoreModule { }

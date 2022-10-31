@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RolGuard } from '@core/guards/rol.guard';
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
 import { ManageLockerComponent } from './pages/admin/manage-locker.component';
-import { LockerComponent } from './pages/staff/locker.component';
+import { LockersComponent} from './pages/staff/lockers/lockers.component';
 
 const routes: Routes = [
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'lockers',
-        component: LockerComponent,
+        component: LockersComponent,
         canActivate: [RolGuard],
         data: { title: 'Lockers', rol: 'LOCKER' }
       },

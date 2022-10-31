@@ -1,0 +1,8 @@
+<div class="card my-3">
+  <button class="card-body" [ngClass]="{
+    'btn-success': locker.available,
+    'btn-danger': !locker.available
+  }">
+    <h3 class="card-title text-center text-white">{{ locker.locker }}</h3>
+  </button>
+</div>

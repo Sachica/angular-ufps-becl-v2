@@ -1,0 +1,46 @@
+<div id="modal-save" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Guardar Sección</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Secciones</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let section of asignedSection" [value]="section.id" (onSelectionChange)="getLockers(section)">
+            {{ section.section }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<div class="d-flex justify-content-between">
+    <div class="mat-elevation-z8 align-self-start w-25 mr-3">
+        <ng-container matColumnDef="picture">
+            <div class="d-flex align-items-center">
+                <img
+                    src="assets/img/no-profile.png"
+                    style="width: 100px; height: 100px"
+                    class="rounded-circle"
+                    />
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="cards-container mat-elevation-z8 w-75">
+        <div class="d-flex align-content-start flex-wrap">
+            <div *ngFor="let locker of currentLockers">
+                <app-cards [locker]="locker"></app-cards>
+            </div>
+        </div>
+    </div>
+</div>

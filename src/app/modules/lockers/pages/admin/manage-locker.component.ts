@@ -6,7 +6,7 @@ import { ISectionComposite, ISimpleStaff } from '@data/interfaces';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { LockersService } from '@modules/lockers/services/locker.service';
+import { SectionService } from '@modules/lockers/services/section.service';
 import { UserService } from '@core/services/user.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -40,7 +40,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private lockersService: LockersService,
+    private sectionService: SectionService,
     private usersService: UserService
   ) { 
     this.newSection = new FormGroup({
@@ -58,7 +58,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.lockersService.getSections()
+    this.sectionService.getSections()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         let sections: ISectionComposite[] = data.map(
@@ -119,7 +119,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    this.lockersService.saveSection(this.newSection.value)
+    this.sectionService.saveSection(this.newSection.value)
       .subscribe((data) => {
         const _data = this.dsSection.data;
         _data.push(data);
@@ -139,7 +139,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.lockersService.saveStaffSection({
+    this.sectionService.saveStaffSection({
       section_id: this.currentSection.id,
       staff_id: idStaff
     }).subscribe((data) => {
@@ -169,7 +169,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
 
   sectionDelete(section: ISectionComposite){
     const _data = this.dsSection.data;
-    this.lockersService.deleteSection(section.id)
+    this.sectionService.deleteSection(section.id)
     .subscribe((data) =>{
       _data.forEach((element, index) => {
         if(element.id == data.id){
@@ -189,7 +189,7 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
     this.dsStaff.data.splice(index, 1);
     this.dsStaff._updateChangeSubscription();
 
-    this.lockersService.deleteStaffSection({
+    this.sectionService.deleteStaffSection({
       section_id: this.currentSection.id,
       staff_id: staff.id
     }).subscribe((data) => {
