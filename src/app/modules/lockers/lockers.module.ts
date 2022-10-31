@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LockersRoutingModule } from './lockers-routing.module';
 import { CoreModule } from '@core/core.module';
 import { ManageLockerComponent } from './pages/admin/manage-locker.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 
 
 @NgModule({
@@ -12,8 +14,10 @@ import { ManageLockerComponent } from './pages/admin/manage-locker.component';
   ],
   imports: [
     CommonModule,
+    MatAutocompleteModule,
     LockersRoutingModule,
-    CoreModule
+    CoreModule,
+    ReactiveFormsModule
   ]
 })
 export class LockersModule { }

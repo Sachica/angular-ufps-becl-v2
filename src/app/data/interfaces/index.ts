@@ -4,7 +4,7 @@ export { IToken } from './token.interface';
 
 export { IAccessToken } from './access-token.interface';
 
-export { IUser } from './user.interface';
+export { IUser, ISimpleStaff } from './user.interface';
 
 export { IProgram } from './program.interface';
 

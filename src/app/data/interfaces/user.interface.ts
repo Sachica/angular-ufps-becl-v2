@@ -14,3 +14,10 @@ export interface IUser {
   program: IProgram;
   roles: IRol[];
 }
+
+export interface ISimpleStaff {
+  id: number,
+  first_name: string;
+  last_name: string;
+  picture: string;
+}

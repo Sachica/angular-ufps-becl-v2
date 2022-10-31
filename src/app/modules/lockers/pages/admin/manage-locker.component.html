@@ -1,3 +1,60 @@
+<div id="modal-save" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Guardar Sección</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newSection" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="prefijo">Prefijo</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="prefijo" 
+              formControlName="section"
+              placeholder="Prefijo"
+              maxlength="1">
+          </div>
+          <div class="form-group">
+            <label for="capacity">Capacidad</label>
+            <input 
+              type="text" 
+              maxlength="3"
+              class="form-control" 
+              id="capacity" 
+              formControlName="capacity"
+              placeholder="Capacidad">
+          </div>
+
+          <div class="modal-footer">
+            <button 
+              type="submit" 
+              class="btn btn-outline-success"
+              >Guardar</button>
+            <button 
+              type="button" 
+              class="btn btn-outline-danger" 
+              (click)="mostrarModal('hide')"
+              >Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button 
+    type="button" 
+    class="btn btn-outline-success" 
+    (click)="mostrarModal('show')"
+    >Guardar sección</button>
+</div>
+
 <mat-form-field class="search-form-field">
   <input matInput (keyup)="applyFilter($event)" placeholder="Search" autocomplete="off" #input>
   <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="input.value" (click)="clearFilter()">
@@ -5,8 +62,9 @@
   </button>
 </mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+<div class="d-flex justify-content-between">
+<div class="mat-elevation-z8 align-self-start mr-2">
+  <table mat-table [dataSource]="dsSection" matSort>
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -16,19 +74,19 @@
 
     <!-- Section Name Column -->
     <ng-container matColumnDef="section">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sección </th>
       <td mat-cell *matCellDef="let element"> {{ element.section }} </td>
     </ng-container>
 
     <!-- Capacity Name Column -->
     <ng-container matColumnDef="capacity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacidad </th>
       <td mat-cell *matCellDef="let element"> {{ element.capacity }} </td>
     </ng-container>
 
     <!-- Number of staff's Column -->
     <ng-container matColumnDef="staffs">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. Staff's </th>
       <td mat-cell *matCellDef="let element"> {{ element.staffs.length }} </td>
     </ng-container>
 
@@ -36,10 +94,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="sectionEdit(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn">
+        <button mat-icon-button color="warn" (click)="sectionDelete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -55,11 +113,11 @@
       <td mat-footer-cell *matFooterCellDef colspan="8"> No data found. </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hidden': dataSource !== undefined}"></tr>
-    <tr mat-footer-row *matFooterRowDef="['noData']"
-      [ngClass]="{'hidden': !(dataSource !== undefined && dataSource.data.length == 0)}"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsSection"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsSection;"></tr>
+    <tr mat-footer-row [ngClass]="{'hidden': dsSection !== undefined}"></tr>
+    <tr mat-footer-row
+      [ngClass]="{'hidden': !(dsSection !== undefined && dsSection.data.length == 0)}"></tr>
 
   </table>
 
@@ -68,4 +126,110 @@
                  showFirstLastButtons
                  aria-label="Select page of users">
   </mat-paginator>
+</div>
+
+<div class="mat-elevation-z8 flex-fill">
+  <form [formGroup]="editSection" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="prefijo">Sección</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="prefijo" 
+        [readonly]="true"
+        formControlName="section"
+        placeholder="Sección"
+        maxlength="1">
+    </div>
+    <div class="form-group">
+      <label for="capacity">Capacidad</label>
+      <input 
+        type="text" 
+        maxlength="3"
+        class="form-control" 
+        id="capacity" 
+        [readonly]="true"
+        formControlName="capacity"
+        placeholder="Capacidad">
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <div class="align-self-start mr-2 flex-fill">
+      <div class="form-group">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Number</mat-label>
+          <input type="text"
+                placeholder="Pick one"
+                aria-label="Number"
+                matInput
+                [readonly]="noEdit"
+                [formControl]="myControl"
+                [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedStaff($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+              {{option.first_name + ' ' + option.last_name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>   
+      </div>
+    </div>
+    <div class="flex-fill">
+      <div class="form-group">
+        <table class="table" mat-table [dataSource]="dsStaff" matSort>
+
+          <!-- Picture Column -->
+          <ng-container matColumnDef="picture">
+            <th mat-header-cell *matHeaderCellDef> Foto </th>
+            <td mat-cell *matCellDef="let element" class="avatar-sm"> 
+              <div class="d-flex align-items-center">
+                <img
+                    [src]="element.picture"
+                    alt="{{ element.first_name }}"
+                    style="width: 45px; height: 45px"
+                    class="rounded-circle"
+                    />
+              </div>
+              <!-- img [src]="element.picture"
+                alt="{{ element.first_name }}" class="avatar-img rounded-circle"--> </td>
+          </ng-container>
+      
+          <!-- Section Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.first_name + ' ' + element.last_name}} </td>
+          </ng-container>
+      
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="removeStaff(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsStaff"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsStaff;"></tr>
+          <!--tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hidden': dataSource !== undefined}"></tr>
+          <tr mat-footer-row *matFooterRowDef="['noData']"
+            [ngClass]="{'hidden': !(dataSource !== undefined && dataSource.data.length == 0)}"></tr-->
+        
+        </table>
+      </div>
+    </div>
+  </div>
+    <!-- div class="modal-footer">
+      <button 
+        type="submit" 
+        class="btn btn-outline-success"
+        >Guardar</button>
+      <button 
+        type="button" 
+        class="btn btn-outline-danger" 
+        (click)="mostrarModal('hide')"
+        >Cerrar</button>
+    </div-->
+  </form>
+</div>
 </div>

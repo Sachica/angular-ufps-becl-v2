@@ -5,13 +5,14 @@ import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '@env/environment.development';
 import { User } from '@data/models';
+import { ISimpleStaff } from '@data/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly URL = `${environment.baseUrlUser}profile/`;
+  private readonly URL = `${environment.baseUrlUser}`;
   public currentUser: User;
 
   constructor(private http: HttpClient) {
@@ -19,7 +20,7 @@ export class UserService {
   }
 
   public userProfile(): Observable<User> {
-    return this.http.get<User>(this.URL).pipe(
+    return this.http.get<User>(`${this.URL}profile/`).pipe(
       map((user: User) => {
         this.currentUser = user;
         this.currentUser.picture = (this.currentUser.picture) ? this.currentUser.picture : 'assets/img/profile.jpg';
@@ -27,6 +28,14 @@ export class UserService {
         return user;
       }),
       catchError(this.handleError));
+  }
+
+  public getStaffById(id: number): Observable<ISimpleStaff> {
+    return this.http.get<ISimpleStaff>(`${this.URL}users/${id}`);
+  }
+
+  public filterStaffByName(name: string): Observable<ISimpleStaff[]> {
+    return this.http.get<ISimpleStaff[]>(`${this.URL}filter-staff/${name}`);
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {
