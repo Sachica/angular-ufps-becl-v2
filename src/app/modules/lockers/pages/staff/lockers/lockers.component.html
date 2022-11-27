@@ -25,13 +25,46 @@
 
 <div class="d-flex justify-content-between">
     <div class="mat-elevation-z8 align-self-start w-25 mr-3">
-        <ng-container matColumnDef="picture">
-            <div class="d-flex align-items-center">
+        <ng-container>
+            <form [formGroup]="qrReader">
+                <div class="form-group">
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="token" 
+                    formControlName="token"
+                    (input)="onChange()"
+                    placeholder="Código QR">
+                </div>
+            </form>
+        </ng-container>
+
+        <ng-container>
+            <div class="d-flex flex-lg-column align-items-center">
                 <img
-                    src="assets/img/no-profile.png"
+                    [src]="currentLockerUser.picture"
                     style="width: 100px; height: 100px"
                     class="rounded-circle"
                     />
+
+                <div class="form-group">
+                    <label for="prefijo">Usuario</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="usuario" 
+                        [value]="currentLockerUser.first_name"
+                        [readonly]="true">
+                </div>
+                <div class="form-group">
+                    <label for="capacity">Programa</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="programa" 
+                        [value]="currentLockerUser.program.name"
+                        [readonly]="true">
+                </div>
             </div>
         </ng-container>
     </div>

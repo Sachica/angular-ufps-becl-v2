@@ -6,3 +6,9 @@ export interface ILockerSimple{
     section_id: number,
     operation_log: number,
 }
+
+export interface IAcquireLocker{
+    token: string,
+    id_section: number,
+    id_staff: number,
+}

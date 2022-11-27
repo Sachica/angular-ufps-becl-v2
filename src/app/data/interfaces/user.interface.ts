@@ -1,13 +1,26 @@
 import { IRol } from './rol.interface';
-import { IProgram } from './program.interface';
 
-export interface IUser {
+export interface IFacultad {
   id: number;
-  username: string;
+  name: string;
+}
+
+export interface IProgram {
+  id: number;
+  name: string;
+  facultad: IFacultad;
+}
+
+export interface ISimpleUser {
+  id: number;
   first_name: string;
   last_name: string;
-  email: string;
   picture: string;
+}
+
+export interface IUser extends ISimpleUser{
+  username: string;
+  email: string;
   is_active: boolean;
   is_staff: boolean;
   is_superuser: boolean;
@@ -15,9 +28,6 @@ export interface IUser {
   roles: IRol[];
 }
 
-export interface ISimpleStaff {
-  id: number,
-  first_name: string;
-  last_name: string;
-  picture: string;
+export interface ISimpleStaff extends ISimpleUser{
+  
 }

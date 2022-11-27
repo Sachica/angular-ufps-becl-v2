@@ -4,9 +4,7 @@ export { IToken } from './token.interface';
 
 export { IAccessToken } from './access-token.interface';
 
-export { IUser, ISimpleStaff } from './user.interface';
-
-export { IProgram } from './program.interface';
+export { IUser, ISimpleUser, ISimpleStaff, IProgram, IFacultad } from './user.interface';
 
 export { IRol } from './rol.interface';
 
@@ -15,3 +13,5 @@ export { IGeneral } from './general.interface';
 export { IStatistics } from './statistics.interface';
 
 export { ISection, ISectionComposite, ISectionStaff } from './section.interface';
+
+export { ILockerSimple, IAcquireLocker } from './locker.interface'

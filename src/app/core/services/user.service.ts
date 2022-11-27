@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '@env/environment.development';
 import { User } from '@data/models';
-import { ISimpleStaff } from '@data/interfaces';
+import { ISimpleStaff, ISimpleUser, IUser } from '@data/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,10 @@ export class UserService {
 
   public getStaffById(id: number): Observable<ISimpleStaff> {
     return this.http.get<ISimpleStaff>(`${this.URL}users/${id}`);
+  }
+
+  public getUserById(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.URL}users/${id}`);
   }
 
   public filterStaffByName(name: string): Observable<ISimpleStaff[]> {

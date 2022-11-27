@@ -20,13 +20,11 @@ export class AuthService {
   public currentUser: Observable<User>
   private helper: JwtHelperService;
   private token: IAccessToken = {} as IAccessToken;
-  private roles: IRol[];
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
     this.currentUser = this.currentUserSubject.asObservable();
     this.helper = new JwtHelperService();
-    this.roles = [];
   }
 
   public signIn(data: ITokenDto): Observable<IToken> {

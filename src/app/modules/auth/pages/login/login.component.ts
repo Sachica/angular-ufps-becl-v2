@@ -24,17 +24,15 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() { }
-
-  public signInWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data: SocialUser) => {
-      this.tokenDto.token = data.idToken;
-      this.signIn(this.tokenDto);
-    }).catch((error) => {
-      console.log(error);
+  ngOnInit() {
+    this.socialAuthService.authState.subscribe((user) => {
+      if(user){
+        this.tokenDto.token = user.idToken;
+        this.signIn(this.tokenDto);
+      }
     });
   }
-
+  
   public signIn(data: ITokenDto): void {
     this.authService.signIn(data).subscribe((token: IToken) => {
       this.userService.userProfile().subscribe((user: User) => {

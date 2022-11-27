@@ -25,7 +25,7 @@ export class DatatablesComponent implements OnInit, AfterViewInit {
 
   constructor() {
     this.displayedColumns = ['id', 'picture', 'first_name', 'last_name', 'email', 'is_active', 'is_staff', 'actions'];
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void { }
@@ -49,77 +49,3 @@ export class DatatablesComponent implements OnInit, AfterViewInit {
   }
 
 }
-
-const ELEMENT_DATA: IUser[] = [
-  {
-    "id": 1,
-    "username": "rojassachicadf@ufps.edu.co",
-    "first_name": "DAVID FERNANDO",
-    "last_name": "ROJAS SACHICA",
-    "email": "rojassachicadf@ufps.edu.co",
-    "picture": "https://lh3.googleusercontent.com/a-/AOh14GjpYHKKFClX9QzYg8fGKb1VD4-LuyoWveXsmXuj=s96-c",
-    "is_active": true,
-    "is_staff": false,
-    "is_superuser": false,
-    "program": {
-      "id": 1,
-      "name": "Ingenieria de Sistemas"
-    },
-    "roles": [
-      {
-        "id": 2,
-        "name": "pregrado"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "username": "stiwardjherikofcr@ufps.edu.co",
-    "first_name": "STIWARD JHERIKOF",
-    "last_name": "CARRILLO RAMIREZ",
-    "email": "stiwardjherikofcr@ufps.edu.co",
-    "picture": "https://lh3.googleusercontent.com/a-/AOh14GiNUefxPNOtjcU0uq2BoP71S2HZ2zqR788-RZ6sSg=s96-c",
-    "is_active": true,
-    "is_staff": false,
-    "is_superuser": false,
-    "program": {
-      "id": 1,
-      "name": "Ingenieria de Sistemas"
-    },
-    "roles": [
-      {
-        "id": 1,
-        "name": "staff"
-      },
-      {
-        "id": 2,
-        "name": "pregrado"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "username": "ronaldeduardobm@ufps.edu.co",
-    "first_name": "RONALD  EDUARDO",
-    "last_name": "BENITEZ MEJIA",
-    "email": "ronaldeduardobm@ufps.edu.co",
-    "picture": "https://lh3.googleusercontent.com/a-/AOh14GiELVSEScyM0fgmrxEkRCWXHIbGIlvyIKD0HdHxfQ=s96-c",
-    "is_active": true,
-    "is_staff": false,
-    "is_superuser": false,
-    "program": {
-      "id": 1,
-      "name": "Ingenieria de Sistemas"
-    },
-    "roles": [
-      {
-        "id": 1,
-        "name": "staff"
-      },
-      {
-        "id": 2,
-        "name": "pregrado"
-      }
-    ]
-  }
-];

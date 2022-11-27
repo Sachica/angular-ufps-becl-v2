@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SectionService } from '@modules/lockers/services/section.service';
 import { UserService } from '@core/services/user.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 declare var $: any;
 declare var jQuery: any;
@@ -23,13 +23,13 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
   public displayedColumnsSection: string[] = ['id', 'section', 'capacity', 'staffs', 'actions'];
   public displayedColumnsStaff: string[] = ['picture', 'name', 'actions'];
 
-  public newSection: FormGroup;
-  public editSection: FormGroup;
+  public newSection: UntypedFormGroup;
+  public editSection: UntypedFormGroup;
 
   public dsSection: MatTableDataSource<ISectionComposite>;
   public dsStaff: MatTableDataSource<ISimpleStaff>;
 
-  public myControl: FormControl;
+  public myControl: UntypedFormControl;
   public filteredOptions: Observable<ISimpleStaff[]>;
 
   public noEdit: boolean;
@@ -43,21 +43,24 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
     private sectionService: SectionService,
     private usersService: UserService
   ) { 
-    this.newSection = new FormGroup({
-      section: new FormControl(),
-      capacity: new FormControl()
+    this.newSection = new UntypedFormGroup({
+      section: new UntypedFormControl(),
+      capacity: new UntypedFormControl()
     });
 
-    this.editSection = new FormGroup({
-      section: new FormControl(),
-      capacity: new FormControl()
+    this.editSection = new UntypedFormGroup({
+      section: new UntypedFormControl(),
+      capacity: new UntypedFormControl()
     });
 
-    this.myControl = new FormControl('');
+    this.myControl = new UntypedFormControl('');
     this.noEdit = true;
   }
 
   ngOnInit(): void {
+    this.dsSection = new MatTableDataSource()
+    this.dsStaff = new MatTableDataSource();
+
     this.sectionService.getSections()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
@@ -91,8 +94,6 @@ export class ManageLockerComponent implements OnInit, OnDestroy {
             }
           );
       })
-      
-      this.dsStaff = new MatTableDataSource();
   }
 
 
