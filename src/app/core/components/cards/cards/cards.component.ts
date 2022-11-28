@@ -13,6 +13,16 @@ export class CardsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(!this.locker){
+      this.locker = {} as ILockerSimple;
+      this.locker.locker = '';
+    }
   }
 
+  getColorCard(): string {
+    if(this.locker.locker == ''){
+      return 'btn-secondary';
+    }
+    return this.locker.available ? 'btn-success': 'btn-danger';
+  }
 }

@@ -18,6 +18,6 @@ export class LockersService {
   }
 
   public acquireLocker(acquireLocker: IAcquireLocker): Observable<ILockerSimple> {
-    return this.http.post<ILockerSimple>(`${this.URL}acquire-locker/`, acquireLocker);
+    return this.http.post<ILockerSimple>(`${this.URL}action-locker/`, acquireLocker);
   }
 }

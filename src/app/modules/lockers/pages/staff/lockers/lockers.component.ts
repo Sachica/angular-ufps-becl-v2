@@ -18,6 +18,8 @@ export class LockersComponent implements OnInit {
 
   public currentLockers: ILockerSimple[];
 
+  public lastLockerOperation: ILockerSimple;
+
   public currentLockerUser: IUser = {} as IUser;
 
   public qrReader: FormGroup;
@@ -56,7 +58,8 @@ export class LockersComponent implements OnInit {
       this.lockersService.acquireLocker(this.qrReader.value).subscribe((locker) => {
         this.currentLockers.forEach((_locker) => {
           if(_locker.locker == locker.locker){
-            _locker.available = false;
+            _locker.available = locker.available;
+            this.lastLockerOperation = _locker;
           }
         });
       });
