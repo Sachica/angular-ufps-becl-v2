@@ -3,3 +3,8 @@ export interface IGeneral {
   visitors: number;
   avg_time: number;
 }
+
+export interface IPaginator {
+  page: number;
+  size_page: number;
+}

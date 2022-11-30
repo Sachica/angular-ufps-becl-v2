@@ -4,6 +4,7 @@ import { RolGuard } from '@core/guards/rol.guard';
 import { AdminLayoutComponent } from '@layouts/admin-layout/admin-layout.component';
 import { ManageLockerComponent } from './pages/admin/manage-locker.component';
 import { LockersComponent} from './pages/staff/lockers/lockers.component';
+import { AudiComponent} from './pages/audi/audi.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,12 @@ const routes: Routes = [
         component: ManageLockerComponent,
         canActivate: [RolGuard],
         data: { title: 'Administrar Lockers', rol: 'ADMIN' }
+      },
+      {
+        path: 'auditar-lockers',
+        component: AudiComponent,
+        canActivate: [RolGuard],
+        data: { title: 'Lockers', rol: 'LOCKER' }
       },
       {
         path: 'lockers',

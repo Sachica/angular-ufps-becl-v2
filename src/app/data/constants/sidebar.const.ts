@@ -29,6 +29,11 @@ export const MENU_ITEMS: ISidebar[] = [
                         roles: [ROLE.ADMIN]
                     },
                     {
+                        title: 'Auditar lockers',
+                        link: '/lockers/auditar-lockers',
+                        roles: [ROLE.ADMIN]
+                    },
+                    {
                         title: 'Lockers',
                         link: '/lockers/lockers',
                         roles: [ROLE.LOCKER]

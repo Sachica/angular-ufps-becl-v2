@@ -8,12 +8,12 @@ export { IUser, ISimpleUser, ISimpleStaff, IProgram, IFacultad } from './user.in
 
 export { IRol } from './rol.interface';
 
-export { IGeneral } from './general.interface';
+export { IGeneral, IPaginator } from './general.interface';
 
 export { IStatistics } from './statistics.interface';
 
 export { ISection, ISectionComposite, ISectionStaff } from './section.interface';
 
-export { ILockerSimple, IAcquireLocker } from './locker.interface'
+export { ILockerSimple, IAcquireLocker, IOperationLog } from './locker.interface'
 
 export { ISidebar } from './ui/sidebar.interface';

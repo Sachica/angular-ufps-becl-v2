@@ -8,12 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { LockersComponent } from './pages/staff/lockers/lockers.component'; 
 import { MatSelectModule } from '@angular/material/select';
-
+import { AudiComponent } from './pages/audi/audi.component';
+import { CapitalizePipe } from '@shared/pipes';
 
 @NgModule({
   declarations: [
     ManageLockerComponent,
-    LockersComponent
+    LockersComponent,
+    AudiComponent,
+    CapitalizePipe,
   ],
   imports: [
     CommonModule,

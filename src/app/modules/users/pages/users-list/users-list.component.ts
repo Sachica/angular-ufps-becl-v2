@@ -46,7 +46,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
               roles
             };
           });
-        console.log({ users });
         this.dataSource = new MatTableDataSource(users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

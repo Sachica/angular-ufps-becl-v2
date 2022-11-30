@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment.development';
-import { ILockerSimple, IAcquireLocker } from '@data/interfaces/index';
+import { ILockerSimple, IAcquireLocker, IPaginator, IOperationLog } from '@data/interfaces/index';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,9 @@ export class LockersService {
 
   public acquireLocker(acquireLocker: IAcquireLocker): Observable<ILockerSimple> {
     return this.http.post<ILockerSimple>(`${this.URL}action-locker/`, acquireLocker);
+  }
+
+  public operationLogLockers(paginator: IPaginator): Observable<IOperationLog[]> {
+    return this.http.post<IOperationLog[]>(`${this.URL}operation-locker/`, paginator);
   }
 }
