@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '@core/services/sidebar.service';
+import { ISidebar } from '@data/interfaces';
 
 @Component({
   selector: 'app-admin-layout',
@@ -8,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  public menuItems: ISidebar[];
+
+  constructor(private sidebarService: SidebarService) {
+    this.menuItems = this.sidebarService.menu;
+  }
 
   ngOnInit(): void {
   }

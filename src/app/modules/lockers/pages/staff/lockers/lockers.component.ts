@@ -75,6 +75,10 @@ export class LockersComponent implements OnInit {
     }
   }
 
+  setUser(user: IUser){
+    this.currentLockerUser = user;
+  }
+
   public getLockers(section: ISection){section.id
     this.qrReader.controls['id_section'].patchValue(section.id);
     this.lockersService.getLockersBySection(section.id)

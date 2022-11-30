@@ -40,7 +40,7 @@
         </ng-container>
 
         <ng-container>
-            <div class="d-flex flex-lg-column align-items-center">
+            <div class="d-flex flex-xl-column align-items-center">
                 <img
                     [src]="currentLockerUser.picture"
                     style="width: 100px; height: 100px"
@@ -74,7 +74,7 @@
     <div class="cards-container mat-elevation-z8 w-75">
         <div class="d-flex align-content-start flex-wrap">
             <div *ngFor="let locker of currentLockers">
-                <app-cards [locker]="locker"></app-cards>
+                <app-cards [locker]="locker" (userEvent)="setUser($event)"></app-cards>
             </div>
         </div>
     </div>

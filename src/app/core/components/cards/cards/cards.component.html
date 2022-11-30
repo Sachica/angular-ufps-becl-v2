@@ -1,5 +1,5 @@
 <div class="card my-3">
-  <button class="card-body" [ngClass]="getColorCard()">
+  <button class="card-body" [ngClass]="getColorCard()" (click)="searchUser()">
     <h3 class="card-title text-center text-white">{{ locker.locker }}</h3>
   </button>
 </div>

@@ -15,3 +15,5 @@ export { IStatistics } from './statistics.interface';
 export { ISection, ISectionComposite, ISectionStaff } from './section.interface';
 
 export { ILockerSimple, IAcquireLocker } from './locker.interface'
+
+export { ISidebar } from './ui/sidebar.interface';

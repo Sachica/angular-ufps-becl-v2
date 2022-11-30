@@ -8,6 +8,7 @@ import { environment } from '@env/environment.development';
 import { IAccessToken, IToken, ITokenDto, IRol } from '@data/interfaces';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { User } from '@data/models';
+import { ROLE } from '@data/enums/role.enum';
 
 
 @Injectable({
@@ -85,8 +86,8 @@ export class AuthService {
     return this.checkRol(component.data.rol);
   }
 
-  public checkRol(rol: string): boolean {
-    return this.currentUserSubject.value.roles.some(p => p.name === rol);
+  public checkRol(roles: ROLE[]): boolean {
+    return this.getCurrentUserSubject().roles.some((role) => roles.includes(role.name));
   }
 
   public handleError(error: HttpErrorResponse): Observable<never> {

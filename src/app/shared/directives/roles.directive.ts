@@ -46,8 +46,8 @@ export class RolesDirective implements OnInit, OnDestroy {
 
   private hasRoles(): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
-    const hasRoles = this.roles.every(rol => this.authService.checkRol(rol));
-    return isLoggedIn && hasRoles;
+    const hasRole = true;
+    return isLoggedIn && hasRole;
   }
 
   ngOnDestroy() {

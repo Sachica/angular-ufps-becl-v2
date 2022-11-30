@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UserService } from '@core/services/user.service';
+import { IUser } from '@data/interfaces';
 import { ILockerSimple } from '@data/interfaces/locker.interface';
 
 @Component({
@@ -10,7 +12,13 @@ export class CardsComponent implements OnInit {
 
   @Input() locker!: ILockerSimple;
 
-  constructor() { }
+  @Output() userEvent = new EventEmitter<IUser>();;
+
+  private user: IUser;
+
+  constructor(
+    private usersService: UserService
+  ) { }
 
   ngOnInit(): void {
     if(!this.locker){
@@ -19,10 +27,27 @@ export class CardsComponent implements OnInit {
     }
   }
 
+  isLockerDefault(){
+    return this.locker.locker == '';
+  }
+
   getColorCard(): string {
-    if(this.locker.locker == ''){
+    if(this.isLockerDefault()){
       return 'btn-secondary';
     }
     return this.locker.available ? 'btn-success': 'btn-danger';
+  }
+
+  searchUser(){
+    if(this.isLockerDefault()) return;
+    
+    if(!this.locker.available && !this.user){
+      this.usersService.getUserById(this.locker.user_id).subscribe((user) => {
+        this.user = user;
+        this.userEvent.emit(this.user);
+      });
+    }else if(this.locker && this.user){
+      this.userEvent.emit(this.user);
+    }
   }
 }
