@@ -11,6 +11,7 @@ import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '@env/environment.development';
 import { RolesDirective } from './directives/roles.directive';
+import { CapitalizePipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RolesDirective } from './directives/roles.directive';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    RolesDirective
+    RolesDirective,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { RolesDirective } from './directives/roles.directive';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    CapitalizePipe
   ],
   providers: [
     {

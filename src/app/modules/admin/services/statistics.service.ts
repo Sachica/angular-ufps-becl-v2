@@ -18,6 +18,7 @@ export class StatisticsService {
     'group': true,
     'type_chart': 'round',
     'current': false,
+    'only_day': false,
   };
 
   constructor(
@@ -31,10 +32,24 @@ export class StatisticsService {
 
   getStatisticsCurrent(): Observable<any> {
     this.body.type_chart = 'bar';
+    this.body.program = true;
+    this.body.facultad = true;
+    this.body.group = true;
+    this.body.current = false;
     this.body.date_filter = new Date().toISOString().split('T')[0];
     return this.http.post<any>(this.URL, this.body, { headers: this.headers });
   }
 
+  getStatisticsLabelCurrent(): Observable<any> {
+    this.body.type_chart = 'bar';
+    this.body.program = true;
+    this.body.facultad = true;
+    this.body.group = true;
+    this.body.current = false;
+    this.body.only_day = true;
+    this.body.date_filter = new Date().toISOString().split('T')[0];
+    return this.http.post<any>(this.URL, this.body, { headers: this.headers });
+  }
 }
 
 export interface IBody {
@@ -45,4 +60,10 @@ export interface IBody {
   current: boolean;
   only_day: boolean;
   date_filter: string;
+}
+
+export interface IEntrance {
+  visits: number;
+  visitors: number;
+  avg_time: number;
 }

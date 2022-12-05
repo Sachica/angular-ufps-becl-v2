@@ -47,7 +47,7 @@ export class AudiComponent implements OnInit {
 
   ngOnInit(): void {
     this.hashUsers[0] = {} as IUser;
-    this.hashUsers[0].picture = 'assets/img/no-profile.png';
+    this.hashUsers[0].picture = 'becl/assets/img/no-profile.png';
 
     this.lockersService.operationLogLockers({page: 0, size_page: 10}).subscribe((operations) => {
       this.operations = operations;
@@ -80,7 +80,6 @@ export class AudiComponent implements OnInit {
     });
 
     this.users = this.users.filter(this.onlyUnique);
-    console.log(this.users);
 
     this.usersSubscription = this.userOperationService
       .setUsers(this.users)

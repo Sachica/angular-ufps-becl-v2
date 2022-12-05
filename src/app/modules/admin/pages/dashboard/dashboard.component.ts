@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Chart, registerables } from 'chart.js';
 import { IStatistics, IGeneral } from '@data/interfaces';
-import { StatisticsService } from '@modules/admin/services/statistics.service';
+import { IEntrance, StatisticsService } from '@modules/admin/services/statistics.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +16,12 @@ export class DashboardComponent implements OnInit {
   visitors: number[] = [];
   visits: number[] = [];
 
+  entranceData: Partial<IEntrance> = {
+    'visits': 0,
+    'visitors': 0,
+    'avg_time': 0,
+  };
+
   constructor(private statisticsService: StatisticsService) {
     Chart.register(...registerables);
     this.statisticsService.getStatisticsCurrent().subscribe((data: any) => {
@@ -23,6 +29,14 @@ export class DashboardComponent implements OnInit {
       this.getProperty(data, false);
       this.getProperty(data, true);
       this.chart.update();
+    });
+
+    this.statisticsService.getStatisticsLabelCurrent().subscribe((data: any) => {
+      for (var key in data){
+        this.entranceData.visits = data[key]["visits"];
+        this.entranceData.visitors = data[key]["visitors"];
+        this.entranceData.avg_time = data[key]["avg_time"];
+      }
     });
   }
 
@@ -33,14 +47,14 @@ export class DashboardComponent implements OnInit {
         labels: this.labels,
         datasets: [
           {
-            label: "Visitors",
+            label: "Visitantes",
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
             data: this.visitors
           },
           {
-            label: "Visits",
+            label: "Visitas",
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,

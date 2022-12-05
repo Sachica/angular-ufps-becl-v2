@@ -6,6 +6,7 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
 
 import { CoreModule } from '@core/core.module';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CoreModule } from '@core/core.module';
     CommonModule,
     UsersRoutingModule,
     CoreModule,
+    MatTableExporterModule,
   ]
 })
 export class UsersModule { }

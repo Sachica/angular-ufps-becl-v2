@@ -6,7 +6,8 @@
   </mat-form-field>
   
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <button mat-button (click)="exporter.exportTable('xlsx')" class="btn btn-success text-white">Exportar</button>
+    <table mat-table matTableExporter [hiddenColumns]="[1, 7, 9]" [dataSource]="dataSource" matSort #exporter="matTableExporter">
   
       <!-- ID Column -->
       <ng-container matColumnDef="id">

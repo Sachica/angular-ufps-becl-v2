@@ -1,0 +1,24 @@
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .mat-column-first_name {
+    padding-left: 10px;
+  }
+  

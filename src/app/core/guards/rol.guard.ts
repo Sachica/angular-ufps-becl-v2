@@ -24,7 +24,6 @@ export class RolGuard implements CanActivate {
 
   checkRol(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.rolService.hasRol(next)) return true;
-    this.authService.logout();
     this.router.navigateByUrl('/not-found/page-401');
     return false;
   }

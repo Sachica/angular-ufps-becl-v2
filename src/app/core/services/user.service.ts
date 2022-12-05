@@ -23,7 +23,7 @@ export class UserService {
     return this.http.get<User>(`${this.URL}profile/`).pipe(
       map((user: User) => {
         this.currentUser = user;
-        this.currentUser.picture = (this.currentUser.picture) ? this.currentUser.picture : 'assets/img/profile.jpg';
+        this.currentUser.picture = (this.currentUser.picture) ? this.currentUser.picture : 'becl/assets/img/profile.jpg';
         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         return user;
       }),

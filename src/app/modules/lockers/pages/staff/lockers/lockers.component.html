@@ -26,14 +26,14 @@
 <div class="d-flex justify-content-between">
     <div class="mat-elevation-z8 align-self-start w-25 mr-3">
         <ng-container>
-            <form [formGroup]="qrReader">
+            <form [formGroup]="qrReader" autocomplete="off">
                 <div class="form-group">
                   <input 
                     type="text" 
                     class="form-control" 
                     id="token" 
                     formControlName="token"
-                    (input)="onChange()"
+                    (change)="onChange()"
                     placeholder="Código QR">
                 </div>
             </form>

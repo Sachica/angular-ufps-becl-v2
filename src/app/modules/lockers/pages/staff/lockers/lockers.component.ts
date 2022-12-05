@@ -18,7 +18,7 @@ export class LockersComponent implements OnInit {
 
   public currentLockers: ILockerSimple[];
 
-  public lastLockerOperation: ILockerSimple;
+  public lastLockerOperation: ILockerSimple = {} as ILockerSimple;
 
   public currentLockerUser: IUser = {} as IUser;
 
@@ -34,11 +34,8 @@ export class LockersComponent implements OnInit {
       id_section: new FormControl(),
       id_staff: new FormControl(this.usersService.currentUser.id),
     });
-
-    this.currentLockerUser.picture = 'assets/img/no-profile.png';
-    this.currentLockerUser.program = {} as IProgram;
-    this.currentLockerUser.first_name = '';
-    this.currentLockerUser.program.name = '';
+    this.lastLockerOperation.locker = '';
+    this.setDefault(false);
    }
 
   ngOnInit(): void {
@@ -49,6 +46,8 @@ export class LockersComponent implements OnInit {
   }
 
   onChange(){
+    if(!this.qrReader.controls['id_section'].value) return;
+
     let token = this.getDecodedAccessToken(this.qrReader.controls['token'].value);
     if(token){
       this.usersService.getUserById(token.id).subscribe((user) => {
@@ -59,12 +58,30 @@ export class LockersComponent implements OnInit {
         this.currentLockers.forEach((_locker) => {
           if(_locker.locker == locker.locker){
             _locker.available = locker.available;
-            this.lastLockerOperation = _locker;
+            Object.assign(this.lastLockerOperation, _locker);
           }
         });
       });
+      this.setTimeout();
     }
-    console.log(token);
+    this.qrReader.controls['token'].patchValue('');
+  }
+
+  setTimeout() {
+    setTimeout(() => {
+      this.setDefault();
+    }, 10000);
+  }
+
+  setDefault(full: boolean = true): void {
+    this.currentLockerUser.picture = 'becl/assets/img/no-profile.png';
+    this.currentLockerUser.program = {} as IProgram;
+    this.currentLockerUser.first_name = '';
+    this.currentLockerUser.program.name = '';
+    if(full){
+      this.lastLockerOperation.available = true;
+      this.lastLockerOperation.locker = '';
+    }
   }
 
   getDecodedAccessToken(token: string): any {

@@ -20,7 +20,7 @@ export const MENU_ITEMS: ISidebar[] = [
             {
                 title: 'Lockers',
                 icon: 'fas fa-columns',
-                roles: [ROLE.ADMIN],
+                roles: [ROLE.ADMIN, ROLE.LOCKER],
                 expanded: true,
                 children: [
                     {
@@ -43,8 +43,8 @@ export const MENU_ITEMS: ISidebar[] = [
             {
                 title: 'Carnets',
                 icon: 'fas fa-columns',
-                roles: [ROLE.QR_ENTRANCE, ROLE.QR_EXIT],
-                expanded: false,
+                roles: [ROLE.QR_ENTRANCE, ROLE.QR_EXIT, ROLE.ADMIN],
+                expanded: true,
                 children: [
                     {
                         title: 'Entrada',
@@ -55,6 +55,11 @@ export const MENU_ITEMS: ISidebar[] = [
                         title: 'Salida',
                         link: '/in-out/qr-output',
                         roles: [ROLE.QR_EXIT]
+                    },
+                    {
+                        title: 'Auditar Entrada/Salida',
+                        link: '/in-out/audi-in-out',
+                        roles: [ROLE.ADMIN]
                     },
                 ],
             },
